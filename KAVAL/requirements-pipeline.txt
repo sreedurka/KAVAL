@@ -1,0 +1,19 @@
+# KAVAL - extra packages needed only to RE-RUN the science pipeline (scripts/p1..p9):
+# satellite acquisition, FTW delineation, Presto, LightGBM/MLP, MIL.
+# NOT needed to run the product: every derived file it serves ships in KAVAL/data.
+# Installed by `setup.cmd full`. Large: torch alone is ~200 MB (CPU build).
+lightgbm==4.7.0
+torch==2.10.0
+einops==0.9.0.dev0
+rasterio==1.5.1
+xarray==2026.9.0
+dask==2026.8.0
+odc-stac==0.5.3
+pystac-client==0.9.0
+planetary-computer==1.0.0
+requests==2.34.2
+pyyaml==6.0.3
+python-dotenv==1.2.3
+# Installed separately by setup.cmd (special flags):
+#   ftw-tools>=2.0.0b5   (pre-release:  --prerelease=allow)
+#   presto @ git commit 11e207a  (--no-deps: upstream pins numpy 1.23 / torch 2.0)

@@ -1,0 +1,51 @@
+{
+  "definitions": {
+    "apportioned_total_ha": "sum of area_m2 over the feature store (field area divided among sharing parcels)",
+    "inherited_total_ha": "sum of field_area_m2 over the feature store (every sharing parcel given the WHOLE field)",
+    "shared_set_inherited_ha": "inherited area over parcels with geometry_source == ftw_shared",
+    "shared_set_unique_field_ha": "the same shared set with each field counted once",
+    "shared_set_inflation": "shared_set_inherited_ha / shared_set_unique_field_ha"
+  },
+  "n_feature_store_parcels": 14611,
+  "n_audit_parcels": 14310,
+  "apportioned_total_ha": 2250.2,
+  "inherited_total_ha": 4800.8,
+  "shared_set_apportioned_ha": 884.8,
+  "shared_set_inherited_ha": 3435.3,
+  "shared_set_unique_field_ha": 884.8,
+  "shared_set_inflation": 3.88,
+  "n_shared_fields": 2545,
+  "n_shared_parcels": 7724,
+  "n_dropped_no_features": 301,
+  "dropped_area_ha": 112.6,
+  "n_dropped_shared_parcels": 72,
+  "n_fields_partially_represented": 50,
+  "n_shared_fields_fully_lost": 8,
+  "audited_total_ha": 2137.6,
+  "field_level_aggregation": {
+    "y_pred": {
+      "conflicted_area_ha": 93.5,
+      "n_conflicted_fields": 386,
+      "area_ha_by_crop": {
+        "Banana": 44.9,
+        "Coconut": 335.7,
+        "Maize": 160.2,
+        "Other": 2.6,
+        "Rice (Paddy)": 1523.2,
+        "Sugarcane": 71.1
+      }
+    },
+    "y_true": {
+      "conflicted_area_ha": 22.9,
+      "n_conflicted_fields": 56,
+      "area_ha_by_crop": {
+        "Banana": 71.9,
+        "Coconut": 341.7,
+        "Maize": 157.6,
+        "Other": 13.5,
+        "Rice (Paddy)": 1473.8,
+        "Sugarcane": 79.0
+      }
+    }
+  }
+}

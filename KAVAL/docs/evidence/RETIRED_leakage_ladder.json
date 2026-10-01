@@ -1,0 +1,53 @@
+{
+  "n_parcels": 14310,
+  "n_capture_events": 2921,
+  "n_villages": 21,
+  "n_features": 76,
+  "model": "LightGBM (identical hyper-parameters across all regimes)",
+  "classes": {
+    "Rice (Paddy)": 8970,
+    "Coconut": 2566,
+    "Maize": 1560,
+    "Banana": 653,
+    "Sugarcane": 429,
+    "Other": 132
+  },
+  "folds": 5,
+  "results": [
+    {
+      "regime": "1. Random row split",
+      "accuracy": 0.897,
+      "accuracy_std": 0.0034,
+      "macro_f1": 0.7753,
+      "macro_f1_std": 0.019,
+      "log_loss": 0.342
+    },
+    {
+      "regime": "2. Grouped by parcel",
+      "accuracy": 0.9047,
+      "accuracy_std": 0.0048,
+      "macro_f1": 0.7956,
+      "macro_f1_std": 0.02,
+      "log_loss": 0.311
+    },
+    {
+      "regime": "3. Grouped by capture event",
+      "accuracy": 0.8169,
+      "accuracy_std": 0.0234,
+      "macro_f1": 0.5536,
+      "macro_f1_std": 0.0275,
+      "log_loss": 0.7929
+    },
+    {
+      "regime": "4. Grouped by village (spatial)",
+      "accuracy": 0.6903,
+      "accuracy_std": 0.0904,
+      "macro_f1": 0.2871,
+      "macro_f1_std": 0.0261,
+      "log_loss": 1.6517
+    }
+  ],
+  "gap_random_to_event_acc_pp": 8.0,
+  "gap_random_to_village_acc_pp": 20.7,
+  "gap_random_to_village_macro_f1": 0.488
+}

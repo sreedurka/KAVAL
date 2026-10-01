@@ -1,0 +1,215 @@
+{
+  "definitions": {
+    "match_rate": "share of survey points inside exactly one cleaned FTW field (p2_ftw_delineate.measure), strict = no snapping",
+    "unmatched_distance": "metres from each strictly-unmatched survey point to the nearest cleaned field, in EPSG:32643"
+  },
+  "n_points": 14611,
+  "overall": {
+    "strict_match_rate": 0.3638,
+    "snapped_20m_match_rate": 0.7328
+  },
+  "per_crop_strict": [
+    {
+      "crop": "Groundnut",
+      "points": 16,
+      "match_rate": 0.625,
+      "unmatched_rate": 0.375,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Sorghum",
+      "points": 30,
+      "match_rate": 0.5667,
+      "unmatched_rate": 0.4333,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Sugarcane",
+      "points": 432,
+      "match_rate": 0.5648,
+      "unmatched_rate": 0.4352,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Fodder Sorghum",
+      "points": 2,
+      "match_rate": 0.5,
+      "unmatched_rate": 0.5,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Diploid Cotton (Paruththi)",
+      "points": 19,
+      "match_rate": 0.4737,
+      "unmatched_rate": 0.5263,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Rice (Paddy)",
+      "points": 9201,
+      "match_rate": 0.4145,
+      "unmatched_rate": 0.5855,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Mango",
+      "points": 6,
+      "match_rate": 0.3333,
+      "unmatched_rate": 0.6667,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Cassava",
+      "points": 24,
+      "match_rate": 0.2917,
+      "unmatched_rate": 0.7083,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Banana",
+      "points": 655,
+      "match_rate": 0.2748,
+      "unmatched_rate": 0.7252,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Maize",
+      "points": 1563,
+      "match_rate": 0.2591,
+      "unmatched_rate": 0.7409,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Coconut",
+      "points": 2627,
+      "match_rate": 0.2364,
+      "unmatched_rate": 0.7636,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Marigold",
+      "points": 36,
+      "match_rate": 0.1389,
+      "unmatched_rate": 0.8611,
+      "ambiguous_rate": 0.0
+    }
+  ],
+  "per_crop_snapped_20m": [
+    {
+      "crop": "Mango",
+      "points": 6,
+      "match_rate": 1.0,
+      "unmatched_rate": 0.0,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Sorghum",
+      "points": 30,
+      "match_rate": 1.0,
+      "unmatched_rate": 0.0,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Sugarcane",
+      "points": 432,
+      "match_rate": 0.8981,
+      "unmatched_rate": 0.1019,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Groundnut",
+      "points": 16,
+      "match_rate": 0.875,
+      "unmatched_rate": 0.125,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Cassava",
+      "points": 24,
+      "match_rate": 0.8333,
+      "unmatched_rate": 0.1667,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Rice (Paddy)",
+      "points": 9201,
+      "match_rate": 0.77,
+      "unmatched_rate": 0.23,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Diploid Cotton (Paruththi)",
+      "points": 19,
+      "match_rate": 0.6842,
+      "unmatched_rate": 0.3158,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Maize",
+      "points": 1563,
+      "match_rate": 0.6699,
+      "unmatched_rate": 0.3301,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Coconut",
+      "points": 2627,
+      "match_rate": 0.6414,
+      "unmatched_rate": 0.3586,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Banana",
+      "points": 655,
+      "match_rate": 0.6076,
+      "unmatched_rate": 0.3924,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Marigold",
+      "points": 36,
+      "match_rate": 0.5556,
+      "unmatched_rate": 0.4444,
+      "ambiguous_rate": 0.0
+    },
+    {
+      "crop": "Fodder Sorghum",
+      "points": 2,
+      "match_rate": 0.5,
+      "unmatched_rate": 0.5,
+      "ambiguous_rate": 0.0
+    }
+  ],
+  "unmatched_distance_m": {
+    "n_unmatched_strict": 9296,
+    "median": 15.2,
+    "p90": 62.7,
+    "share_within_20m": 0.58,
+    "share_beyond_200m": 0.0095
+  },
+  "layers": {
+    "raw": {
+      "polygons": 64708,
+      "total_ha": 13061.9
+    },
+    "post_processed": {
+      "polygons": 64530,
+      "total_ha": 12246.7,
+      "cleaning": {
+        "polygons_in": 64708,
+        "after_make_valid_explode": 64708,
+        "dropped_below_min_area": 0,
+        "dropped_slivers": 178,
+        "polygons_out": 64530,
+        "oversized_kept": 0,
+        "oversized_threshold_m2": 50000,
+        "field_area_m2": {
+          "p10": 500,
+          "median": 1100,
+          "p90": 3900,
+          "total_ha": 12246.7
+        }
+      }
+    }
+  }
+}

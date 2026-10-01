@@ -1,0 +1,54 @@
+{
+  "reserve_forest_polygons": [
+    "Vasudevanallur R.F",
+    "Naranapuram R.F",
+    "CHINTAMANI R.F",
+    "Sivagiri Reserve Forest"
+  ],
+  "reserve_forest_total_ha": 18384.8,
+  "min_intersection_m2": 500,
+  "boundary_slivers_discarded": 106,
+  "field_like_patches": 2919,
+  "field_like_area_ha": 734.7,
+  "pct_of_protected_area": 4.0,
+  "patch_area_ha": {
+    "median": 0.1,
+    "p90": 0.37,
+    "max": 60.8
+  },
+  "per_forest": [
+    {
+      "vill_name": "CHINTAMANI R.F",
+      "patches": 9,
+      "field_like_ha": 3.9,
+      "rf_area_ha": 143.4,
+      "pct_of_forest": 2.7
+    },
+    {
+      "vill_name": "Naranapuram R.F",
+      "patches": 95,
+      "field_like_ha": 56.7,
+      "rf_area_ha": 152.5,
+      "pct_of_forest": 37.2
+    },
+    {
+      "vill_name": "Sivagiri Reserve Forest",
+      "patches": 2613,
+      "field_like_ha": 631.6,
+      "rf_area_ha": 7525.6,
+      "pct_of_forest": 8.4
+    },
+    {
+      "vill_name": "Vasudevanallur R.F",
+      "patches": 202,
+      "field_like_ha": 42.5,
+      "rf_area_ha": 10563.4,
+      "pct_of_forest": 0.4
+    }
+  ],
+  "polygons_possibly_mislabelled": [
+    "Naranapuram R.F"
+  ],
+  "interpretation": "NOT a conclusion. There is no ground truth inside these polygons, so this measures only what the delineation model calls field-like. It is consistent with encroachment, with delineation false positives on canopy gaps and fire lines, or with errors in the supplied forest boundaries \u2014 and this data cannot separate them. The value is that it produces a bounded, ranked list of places worth a field visit.",
+  "calibration_check": "The useful negative-control test is whether the CROP CLASSIFIER, run over these patches, returns low confidence. That requires satellite embeddings for geometry outside the 14,611 surveyed parcels, which needs Earth Engine credentials we do not have. Recorded as not done rather than approximated."
+}

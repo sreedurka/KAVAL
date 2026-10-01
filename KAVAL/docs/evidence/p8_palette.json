@@ -1,0 +1,206 @@
+{
+  "source_css": "KAVAL/frontend/src/styles.css",
+  "validator": "validate_palette.js",
+  "pairs": "all",
+  "results": {
+    "filled_light": {
+      "palette": [
+        "#d03b3b",
+        "#eda100",
+        "#1baf7a",
+        "#2a78d6"
+      ],
+      "mode": "light",
+      "surface": "#fcfcfb",
+      "command": "/tmp/claude-1000/bundled-skills/2.1.285/5f88d207b57b51bcce81e1355cb0a1dc/dataviz/scripts/validate_palette.js #d03b3b,#eda100,#1baf7a,#2a78d6 --mode light --surface #fcfcfb --pairs all",
+      "checks": {
+        "Lightness band": {
+          "verdict": "PASS",
+          "detail": "all 4 inside L 0.43–0.77"
+        },
+        "Chroma floor": {
+          "verdict": "PASS",
+          "detail": "all 4 >= 0.1"
+        },
+        "CVD separation": {
+          "verdict": "PASS",
+          "detail": "worst all-pairs #1baf7a↔#eda100 ΔE 9.1 (protan) · tritan 9.6"
+        },
+        "Normal-vision floor": {
+          "verdict": "PASS",
+          "detail": "worst all-pairs #1baf7a↔#eda100 ΔE 22.9 (normal)"
+        },
+        "Contrast vs surface": {
+          "verdict": "WARN",
+          "detail": "below 3:1 — relief required (visible labels or table view): [[\"#eda100\",2.11],[\"#1baf7a\",2.74]]"
+        }
+      },
+      "worst_cvd_delta_e": 9.1,
+      "worst_cvd_type": "protan",
+      "normal_vision_floor_delta_e": 22.9,
+      "passed": true,
+      "raw": "Palette (light, surface #fcfcfb, categorical): 4 slots\n  [PASS] Lightness band         all 4 inside L 0.43–0.77\n  [PASS] Chroma floor           all 4 >= 0.1\n  [PASS] CVD separation         worst all-pairs #1baf7a↔#eda100 ΔE 9.1 (protan) · tritan 9.6\n  [PASS] Normal-vision floor    worst all-pairs #1baf7a↔#eda100 ΔE 22.9 (normal)\n  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [[\"#eda100\",2.11],[\"#1baf7a\",2.74]]\n\n  → ALL CHECKS PASS  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)\n  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity."
+    },
+    "with_unseen_light": {
+      "palette": [
+        "#d03b3b",
+        "#eda100",
+        "#1baf7a",
+        "#2a78d6",
+        "#898781"
+      ],
+      "mode": "light",
+      "surface": "#fcfcfb",
+      "command": "/tmp/claude-1000/bundled-skills/2.1.285/5f88d207b57b51bcce81e1355cb0a1dc/dataviz/scripts/validate_palette.js #d03b3b,#eda100,#1baf7a,#2a78d6,#898781 --mode light --surface #fcfcfb --pairs all",
+      "checks": {
+        "Lightness band": {
+          "verdict": "PASS",
+          "detail": "all 5 inside L 0.43–0.77"
+        },
+        "Chroma floor": {
+          "verdict": "FAIL",
+          "detail": "below floor (reads gray): [[\"#898781\",0.009]]"
+        },
+        "CVD separation": {
+          "verdict": "FAIL",
+          "detail": "worst all-pairs #898781↔#1baf7a ΔE 5.1 (deutan) · tritan 9.6"
+        },
+        "Normal-vision floor": {
+          "verdict": "FAIL",
+          "detail": "worst all-pairs #898781↔#1baf7a ΔE 14.5 (normal) — below 15, hard to tell apart even with full color vision"
+        },
+        "Contrast vs surface": {
+          "verdict": "WARN",
+          "detail": "below 3:1 — relief required (visible labels or table view): [[\"#eda100\",2.11],[\"#1baf7a\",2.74]]"
+        }
+      },
+      "worst_cvd_delta_e": 5.1,
+      "worst_cvd_type": "deutan",
+      "normal_vision_floor_delta_e": 14.5,
+      "passed": false,
+      "raw": "Palette (light, surface #fcfcfb, categorical): 5 slots\n  [PASS] Lightness band         all 5 inside L 0.43–0.77\n  [FAIL] Chroma floor           below floor (reads gray): [[\"#898781\",0.009]]\n  [FAIL] CVD separation         worst all-pairs #898781↔#1baf7a ΔE 5.1 (deutan) · tritan 9.6\n  [FAIL] Normal-vision floor    worst all-pairs #898781↔#1baf7a ΔE 14.5 (normal) — below 15, hard to tell apart even with full color vision\n  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [[\"#eda100\",2.11],[\"#1baf7a\",2.74]]\n\n  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)\n  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity."
+    },
+    "filled_dark": {
+      "palette": [
+        "#d03b3b",
+        "#c98500",
+        "#199e70",
+        "#3987e5"
+      ],
+      "mode": "dark",
+      "surface": "#1a1a19",
+      "command": "/tmp/claude-1000/bundled-skills/2.1.285/5f88d207b57b51bcce81e1355cb0a1dc/dataviz/scripts/validate_palette.js #d03b3b,#c98500,#199e70,#3987e5 --mode dark --surface #1a1a19 --pairs all",
+      "checks": {
+        "Lightness band": {
+          "verdict": "PASS",
+          "detail": "all 4 inside L 0.48–0.67"
+        },
+        "Chroma floor": {
+          "verdict": "PASS",
+          "detail": "all 4 >= 0.1"
+        },
+        "CVD separation": {
+          "verdict": "WARN",
+          "detail": "worst all-pairs #199e70↔#d03b3b ΔE 7.2 (deutan) · tritan 4.0"
+        },
+        "Normal-vision floor": {
+          "verdict": "PASS",
+          "detail": "worst all-pairs #c98500↔#d03b3b ΔE 16.9 (normal)"
+        },
+        "Contrast vs surface": {
+          "verdict": "PASS",
+          "detail": "all 4 >= 3:1"
+        }
+      },
+      "worst_cvd_delta_e": 7.2,
+      "worst_cvd_type": "deutan",
+      "normal_vision_floor_delta_e": 16.9,
+      "passed": true,
+      "raw": "Palette (dark, surface #1a1a19, categorical): 4 slots\n  [PASS] Lightness band         all 4 inside L 0.48–0.67\n  [PASS] Chroma floor           all 4 >= 0.1\n  [WARN] CVD separation         worst all-pairs #199e70↔#d03b3b ΔE 7.2 (deutan) · tritan 4.0\n  [PASS] Normal-vision floor    worst all-pairs #c98500↔#d03b3b ΔE 16.9 (normal)\n  [PASS] Contrast vs surface    all 4 >= 3:1\n\n  → ALL CHECKS PASS  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)\n  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity."
+    },
+    "with_unseen_dark": {
+      "palette": [
+        "#d03b3b",
+        "#c98500",
+        "#199e70",
+        "#3987e5",
+        "#898781"
+      ],
+      "mode": "dark",
+      "surface": "#1a1a19",
+      "command": "/tmp/claude-1000/bundled-skills/2.1.285/5f88d207b57b51bcce81e1355cb0a1dc/dataviz/scripts/validate_palette.js #d03b3b,#c98500,#199e70,#3987e5,#898781 --mode dark --surface #1a1a19 --pairs all",
+      "checks": {
+        "Lightness band": {
+          "verdict": "PASS",
+          "detail": "all 5 inside L 0.48–0.67"
+        },
+        "Chroma floor": {
+          "verdict": "FAIL",
+          "detail": "below floor (reads gray): [[\"#898781\",0.009]]"
+        },
+        "CVD separation": {
+          "verdict": "FAIL",
+          "detail": "worst all-pairs #898781↔#199e70 ΔE 2.0 (deutan) · tritan 4.0"
+        },
+        "Normal-vision floor": {
+          "verdict": "FAIL",
+          "detail": "worst all-pairs #898781↔#199e70 ΔE 12.6 (normal) — below 15, hard to tell apart even with full color vision"
+        },
+        "Contrast vs surface": {
+          "verdict": "PASS",
+          "detail": "all 5 >= 3:1"
+        }
+      },
+      "worst_cvd_delta_e": 2.0,
+      "worst_cvd_type": "deutan",
+      "normal_vision_floor_delta_e": 12.6,
+      "passed": false,
+      "raw": "Palette (dark, surface #1a1a19, categorical): 5 slots\n  [PASS] Lightness band         all 5 inside L 0.48–0.67\n  [FAIL] Chroma floor           below floor (reads gray): [[\"#898781\",0.009]]\n  [FAIL] CVD separation         worst all-pairs #898781↔#199e70 ΔE 2.0 (deutan) · tritan 4.0\n  [FAIL] Normal-vision floor    worst all-pairs #898781↔#199e70 ΔE 12.6 (normal) — below 15, hard to tell apart even with full color vision\n  [PASS] Contrast vs surface    all 5 >= 3:1\n\n  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)\n  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity."
+    },
+    "retired_light": {
+      "palette": [
+        "#0ca30c",
+        "#fab219",
+        "#d03b3b",
+        "#4a3aa7",
+        "#898781"
+      ],
+      "mode": "light",
+      "surface": "#fcfcfb",
+      "command": "/tmp/claude-1000/bundled-skills/2.1.285/5f88d207b57b51bcce81e1355cb0a1dc/dataviz/scripts/validate_palette.js #0ca30c,#fab219,#d03b3b,#4a3aa7,#898781 --mode light --surface #fcfcfb --pairs all",
+      "checks": {
+        "Lightness band": {
+          "verdict": "FAIL",
+          "detail": "outside band: [[\"#fab219\",0.811]]"
+        },
+        "Chroma floor": {
+          "verdict": "FAIL",
+          "detail": "below floor (reads gray): [[\"#898781\",0.009]]"
+        },
+        "CVD separation": {
+          "verdict": "FAIL",
+          "detail": "worst all-pairs #d03b3b↔#0ca30c ΔE 4.1 (deutan) · tritan 11.9"
+        },
+        "Normal-vision floor": {
+          "verdict": "PASS",
+          "detail": "worst all-pairs #898781↔#d03b3b ΔE 18.9 (normal)"
+        },
+        "Contrast vs surface": {
+          "verdict": "WARN",
+          "detail": "below 3:1 — relief required (visible labels or table view): [[\"#fab219\",1.79]]"
+        }
+      },
+      "worst_cvd_delta_e": 4.1,
+      "worst_cvd_type": "deutan",
+      "normal_vision_floor_delta_e": 18.9,
+      "passed": false,
+      "raw": "Palette (light, surface #fcfcfb, categorical): 5 slots\n  [FAIL] Lightness band         outside band: [[\"#fab219\",0.811]]\n  [FAIL] Chroma floor           below floor (reads gray): [[\"#898781\",0.009]]\n  [FAIL] CVD separation         worst all-pairs #d03b3b↔#0ca30c ΔE 4.1 (deutan) · tritan 11.9\n  [PASS] Normal-vision floor    worst all-pairs #898781↔#d03b3b ΔE 18.9 (normal)\n  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [[\"#fab219\",1.79]]\n\n  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)\n  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity."
+    }
+  },
+  "status_order": [
+    "disputed",
+    "uncertain",
+    "unverifiable",
+    "confirmed"
+  ]
+}

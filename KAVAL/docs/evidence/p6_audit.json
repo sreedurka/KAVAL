@@ -1,0 +1,187 @@
+{
+  "n_parcels": 14310,
+  "n_bags": 2921,
+  "split_regime": "3-event",
+  "thresholds": {
+    "confidence_high": 0.8,
+    "confidence_low": 0.5,
+    "trust_floor": 0.35,
+    "trust_high": 0.65
+  },
+  "calibration": {
+    "method": "two-fold bag-grouped isotonic, cross-fitted",
+    "ece_raw": 0.1246738616712404,
+    "ece_calibrated": 0.004597312965920312,
+    "mean_confidence_raw": 0.9417947561506255,
+    "mean_confidence_calibrated": 0.8169598019616916,
+    "actual_accuracy": 0.8171208944793851,
+    "ece_improvement": 0.1201
+  },
+  "confident_learning": {
+    "model_accuracy_used_as_cap": 0.8171208944793851,
+    "candidate_label_errors": 2183,
+    "pct_of_records": 15.26,
+    "mean_p_label_wrong": 0.10969354781629681,
+    "by_declared_crop": {
+      "Rice (Paddy)": 758,
+      "Coconut": 497,
+      "Banana": 374,
+      "Maize": 351,
+      "Sugarcane": 108,
+      "Other": 95
+    }
+  },
+  "bag_support_used_in_trust": true,
+  "bag_support_reason": "Phase 5 attention signal is informative",
+  "trust_weights_applied": {
+    "bag_size": 0.25,
+    "photo_distance": 0.2,
+    "bag_support": 0.25,
+    "stage_plausibility": 0.1,
+    "mixed_crop": 0.1,
+    "geometry_source": 0.05,
+    "heterogeneity": 0.05
+  },
+  "trust_components_mean": {
+    "bag_size": 0.5954,
+    "photo_distance": 0.491,
+    "bag_support": 0.598,
+    "stage_plausibility": 0.8746,
+    "mixed_crop": 0.9734,
+    "geometry_source": 0.7325,
+    "heterogeneity": 0.4366
+  },
+  "trust_score_deciles": {
+    "0": 0.1814,
+    "1": 0.4628,
+    "2": 0.5297,
+    "3": 0.5742,
+    "4": 0.6133,
+    "5": 0.648,
+    "6": 0.6812,
+    "7": 0.715,
+    "8": 0.7561,
+    "9": 0.8068,
+    "10": 0.9653
+  },
+  "trust_vs_agreement_r": {
+    "with_bag_support": 0.1241,
+    "without_bag_support": 0.0774,
+    "note": "Pearson r between trust_score and (y_pred == y_true). Near zero means trust is largely independent of model agreement."
+  },
+  "agreement_status_counts": {
+    "UNCERTAIN": 8429,
+    "CONFIRMED": 4825,
+    "DISPUTED": 784,
+    "UNVERIFIABLE": 272
+  },
+  "agreement_status_area_ha": {
+    "CONFIRMED": 870.8,
+    "DISPUTED": 100.8,
+    "UNCERTAIN": 1143.0,
+    "UNVERIFIABLE": 23.0
+  },
+  "budget_curve": [
+    {
+      "budget": 100,
+      "pct_of_parcels_visited": 0.7,
+      "routed_area_ha": 52.32479719968311,
+      "base_disagreement_rate": 0.18287910552061495,
+      "total_disagreements_available": 2617,
+      "routed_disagreements_found": 100,
+      "random_disagreements_expected": 18.287910552061497,
+      "targeting_efficiency": 5.468093236530378,
+      "targeting_is_pinned_by_construction": true,
+      "routed_mean_confidence": 0.7579529654805957,
+      "all_disagreements_mean_confidence": 0.6523693571002142,
+      "estimated_corrections_routed": 78.42625527761211,
+      "estimated_corrections_random": 10.734636320045427,
+      "estimated_corrections_random_std": 2.628512820453107,
+      "note": "targeting_efficiency is capped at 1/base_disagreement_rate, and reaches it whenever every routed parcel is a disagreement; routing by P(label wrong) x area lets a few agreeing parcels in, so it can sit just below the cap. Either way it measures coverage, not ranking quality, and establishes nothing about which side of a disagreement is correct."
+    },
+    {
+      "budget": 250,
+      "pct_of_parcels_visited": 1.75,
+      "routed_area_ha": 92.92722368511437,
+      "base_disagreement_rate": 0.18287910552061495,
+      "total_disagreements_available": 2617,
+      "routed_disagreements_found": 250,
+      "random_disagreements_expected": 45.71977638015374,
+      "targeting_efficiency": 5.468093236530378,
+      "targeting_is_pinned_by_construction": true,
+      "routed_mean_confidence": 0.7396360889073017,
+      "all_disagreements_mean_confidence": 0.6523693571002142,
+      "estimated_corrections_routed": 196.39465026252253,
+      "estimated_corrections_random": 27.57834174084081,
+      "estimated_corrections_random_std": 3.909949368081677,
+      "note": "targeting_efficiency is capped at 1/base_disagreement_rate, and reaches it whenever every routed parcel is a disagreement; routing by P(label wrong) x area lets a few agreeing parcels in, so it can sit just below the cap. Either way it measures coverage, not ranking quality, and establishes nothing about which side of a disagreement is correct."
+    },
+    {
+      "budget": 500,
+      "pct_of_parcels_visited": 3.49,
+      "routed_area_ha": 142.8339177386044,
+      "base_disagreement_rate": 0.18287910552061495,
+      "total_disagreements_available": 2617,
+      "routed_disagreements_found": 498,
+      "random_disagreements_expected": 91.43955276030748,
+      "targeting_efficiency": 5.446220863584257,
+      "targeting_is_pinned_by_construction": true,
+      "routed_mean_confidence": 0.7340940282341393,
+      "all_disagreements_mean_confidence": 0.6523693571002142,
+      "estimated_corrections_routed": 390.5483547613532,
+      "estimated_corrections_random": 53.930495037430575,
+      "estimated_corrections_random_std": 6.030108797413245,
+      "note": "targeting_efficiency is capped at 1/base_disagreement_rate, and reaches it whenever every routed parcel is a disagreement; routing by P(label wrong) x area lets a few agreeing parcels in, so it can sit just below the cap. Either way it measures coverage, not ranking quality, and establishes nothing about which side of a disagreement is correct."
+    },
+    {
+      "budget": 1000,
+      "pct_of_parcels_visited": 6.99,
+      "routed_area_ha": 207.87347375093242,
+      "base_disagreement_rate": 0.18287910552061495,
+      "total_disagreements_available": 2617,
+      "routed_disagreements_found": 972,
+      "random_disagreements_expected": 182.87910552061496,
+      "targeting_efficiency": 5.314986625907528,
+      "targeting_is_pinned_by_construction": true,
+      "routed_mean_confidence": 0.7158571627911405,
+      "all_disagreements_mean_confidence": 0.6523693571002142,
+      "estimated_corrections_routed": 764.5348132294303,
+      "estimated_corrections_random": 108.83886950422661,
+      "estimated_corrections_random_std": 8.125932064119786,
+      "note": "targeting_efficiency is capped at 1/base_disagreement_rate, and reaches it whenever every routed parcel is a disagreement; routing by P(label wrong) x area lets a few agreeing parcels in, so it can sit just below the cap. Either way it measures coverage, not ranking quality, and establishes nothing about which side of a disagreement is correct."
+    },
+    {
+      "budget": 2000,
+      "pct_of_parcels_visited": 13.98,
+      "routed_area_ha": 264.76877469381003,
+      "base_disagreement_rate": 0.18287910552061495,
+      "total_disagreements_available": 2617,
+      "routed_disagreements_found": 1882,
+      "random_disagreements_expected": 365.7582110412299,
+      "targeting_efficiency": 5.1454757355750855,
+      "targeting_is_pinned_by_construction": true,
+      "routed_mean_confidence": 0.7075469463737499,
+      "all_disagreements_mean_confidence": 0.6523693571002142,
+      "estimated_corrections_routed": 1494.5148144607606,
+      "estimated_corrections_random": 218.38546130084575,
+      "estimated_corrections_random_std": 10.486170707022483,
+      "note": "targeting_efficiency is capped at 1/base_disagreement_rate, and reaches it whenever every routed parcel is a disagreement; routing by P(label wrong) x area lets a few agreeing parcels in, so it can sit just below the cap. Either way it measures coverage, not ranking quality, and establishes nothing about which side of a disagreement is correct."
+    }
+  ],
+  "visit_cost_assumption": {
+    "parcels_per_surveyor_day": 25,
+    "note": "Assumption. Derived from 3,204 capture events over a ~7-day survey window across 21 villages in the supplied sample; revise with FarmwiseAI's actuals."
+  },
+  "auto_clear": {
+    "parcels": 4825,
+    "pct_of_parcels": 33.7,
+    "area_ha": 870.8,
+    "surveyor_days_saved_per_season": 193.0,
+    "baseline_surveyor_days": 572.4,
+    "assumption": "Assumption. Derived from 3,204 capture events over a ~7-day survey window across 21 villages in the supplied sample; revise with FarmwiseAI's actuals.",
+    "accuracy_within_confirmed_is_tautological": true,
+    "expected_residual_error_rate": 0.07571381587641912,
+    "expected_parcels_wrongly_cleared": 365.3191616037218,
+    "residual_note": "Auto-clearing fails only when the satellite and the surveyor err in the SAME way. That quantity is UNIDENTIFIED from this data: the calibrator was fitted against the declared label, so 1 - calibrated confidence estimates the probability of an event CONFIRMED already conditions on. It is offered as a rough proxy, NOT a bound, and can only be settled by an independent field audit of a CONFIRMED sample."
+  }
+}

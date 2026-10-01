@@ -1,0 +1,19 @@
+{
+  "source": "NASA POWER (MERRA-2 reanalysis), keyless HTTP API",
+  "substitutes_for": "ERA5-Land, which requires a Copernicus CDS API key we do not hold",
+  "point": {
+    "lon": 77.3917,
+    "lat": 9.2898,
+    "derived_from": "centroid of the supplied taluk polygon"
+  },
+  "months": 12,
+  "months_expected": 12,
+  "missing_months": [],
+  "t2m_celsius": {
+    "min": 22.8,
+    "max": 27.24,
+    "mean": 25.19
+  },
+  "resolution_caveat": "MERRA-2 is ~0.5 deg x 0.625 deg (~55 x 70 km). The entire 437 km2 taluk falls in one or two cells, so this is a TALUK-scale series. Every parcel in a given month receives the same value; it carries no within-taluk spatial information.",
+  "units_note": "t2m is degrees Celsius as POWER serves it; t2m_kelvin is the converted column Presto expects."
+}

@@ -1,0 +1,24 @@
+{
+  "footprints_ha": {
+    "taluk": 44973.0,
+    "revenue_villages": 26588.0,
+    "reserve_forest": 18385.0
+  },
+  "ftw_ha": {
+    "whole_layer": 13062.0,
+    "inside_21_villages": 7151.0,
+    "inside_reserve_forest": 736.0
+  },
+  "registry_ha": {
+    "all_crops": 12097.0,
+    "annual_arable": 9602.0,
+    "perennial_tree": 2495.0
+  },
+  "comparison_pct": {
+    "whole_layer_vs_registry_MISMATCHED_FOOTPRINT": 8.0,
+    "in_villages_vs_all_crops": -40.9,
+    "in_villages_vs_annual_crops": -25.5
+  },
+  "correction": "Earlier documents claimed FTW was 'within 8% of the registry'. That compared FTW's whole-taluk area (13,062 ha, including 736 ha inside Reserve Forest and all non-village land) against a registry covering only the 21 revenue villages. Like for like, FTW finds materially LESS than the registry.",
+  "reading": "FTW recovers ~59% of registry cropped area inside the villages, and ~75% of the annual-crop area. It under-delineates even annual arable, so the 'strong on annual, weak on tree crops' story is only part of the shortfall. Other candidates, none isolable with this data: Rabi-only imagery windows missing fallow or late-sown fields, cloud-affected scenes, the Sentinel-2 5.11 processing-baseline mismatch, and small fields below the 500 m2 floor."
+}

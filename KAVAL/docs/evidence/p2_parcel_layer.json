@@ -1,0 +1,80 @@
+{
+  "records": 14611,
+  "village_polygons_supplied": 25,
+  "villages_with_ground_truth": 21,
+  "method": "village-constrained Voronoi, clipped to 30 m radius",
+  "village_code_mismatch_records": 1930,
+  "village_code_mismatch_pairs": [
+    {
+      "recorded": 912,
+      "actual": 911,
+      "n": 1175
+    },
+    {
+      "recorded": 911,
+      "actual": 912,
+      "n": 720
+    },
+    {
+      "recorded": 14,
+      "actual": 101,
+      "n": 10
+    },
+    {
+      "recorded": 141,
+      "actual": 142,
+      "n": 7
+    },
+    {
+      "recorded": 7,
+      "actual": 151,
+      "n": 5
+    },
+    {
+      "recorded": 6,
+      "actual": 101,
+      "n": 3
+    },
+    {
+      "recorded": 101,
+      "actual": 6,
+      "n": 3
+    },
+    {
+      "recorded": 122,
+      "actual": 152,
+      "n": 2
+    },
+    {
+      "recorded": 3,
+      "actual": 141,
+      "n": 1
+    },
+    {
+      "recorded": 8,
+      "actual": 151,
+      "n": 1
+    }
+  ],
+  "reserve_forest_polygons": [
+    "Vasudevanallur R.F",
+    "Naranapuram R.F",
+    "CHINTAMANI R.F",
+    "Sivagiri Reserve Forest"
+  ],
+  "records_without_village_boundary": 0,
+  "area_m2": {
+    "median": 1953,
+    "p10": 902,
+    "p90": 2823,
+    "total_ha": 2764.8
+  },
+  "empty_geometries": 0,
+  "overlap_check": {
+    "sampled_parcels": 3000,
+    "adjacent_pairs": 2994,
+    "double_counted_area_m2": 0.0,
+    "as_pct_of_sampled_area": 0.0,
+    "note": "adjacent Voronoi cells share boundaries but enclose no common area, so crop-area totals do not double-count"
+  }
+}

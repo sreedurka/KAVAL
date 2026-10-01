@@ -1,0 +1,32 @@
+# --- machine-specific / rebuildable --------------------------------------
+.venv/
+.cache/
+node_modules/
+KAVAL/frontend/dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.tsbuildinfo
+.vite/
+
+# --- generated test and recording artefacts ------------------------------
+KAVAL/docs/e2e/test-results/
+KAVAL/docs/demo/raw/
+
+# --- secrets: keys are passed as environment variables, never committed --
+.env
+.env.*
+*.key
+.claude/settings.local.json
+
+# --- prior work: only the feature export the pipeline reads is kept -------
+CropSight/*
+!CropSight/CropSight_Task3_UPGRADED/
+CropSight/CropSight_Task3_UPGRADED/*
+!CropSight/CropSight_Task3_UPGRADED/06_FEATURE_ACQUISITION/
+
+# --- OS / editor ----------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,121 @@
+{
+  "n_records": 14643,
+  "n_villages": 21,
+  "n_capture_events": 3204,
+  "label_inflation_factor": 4.57,
+  "max_parcels_per_capture_event": 43,
+  "pct_records_in_multi_parcel_events": 93.8,
+  "capture_events_with_constant_field": {
+    "final_crop_name": 3204,
+    "final_crop_stage": 3204,
+    "village__1": 3204,
+    "image_timestamp": 3204,
+    "image_latitude": 3204,
+    "image_longitude": 3204
+  },
+  "capture_events_with_mixed_crop_label": 0,
+  "per_crop_effective_n": {
+    "Rice (Paddy)": {
+      "records": 9221,
+      "capture_events": 2322,
+      "inflation": 4.0
+    },
+    "Coconut": {
+      "records": 2633,
+      "capture_events": 517,
+      "inflation": 5.1
+    },
+    "Maize": {
+      "records": 1568,
+      "capture_events": 162,
+      "inflation": 9.7
+    },
+    "Banana": {
+      "records": 655,
+      "capture_events": 66,
+      "inflation": 9.9
+    },
+    "Sugarcane": {
+      "records": 433,
+      "capture_events": 120,
+      "inflation": 3.6
+    },
+    "Marigold": {
+      "records": 36,
+      "capture_events": 3,
+      "inflation": 12.0
+    },
+    "Sorghum": {
+      "records": 30,
+      "capture_events": 4,
+      "inflation": 7.5
+    },
+    "Cassava": {
+      "records": 24,
+      "capture_events": 3,
+      "inflation": 8.0
+    },
+    "Diploid Cotton (Paruththi)": {
+      "records": 19,
+      "capture_events": 2,
+      "inflation": 9.5
+    },
+    "Groundnut": {
+      "records": 16,
+      "capture_events": 2,
+      "inflation": 8.0
+    },
+    "Mango": {
+      "records": 6,
+      "capture_events": 1,
+      "inflation": 6.0
+    },
+    "Fodder Sorghum": {
+      "records": 2,
+      "capture_events": 2,
+      "inflation": 1.0
+    }
+  },
+  "records_with_multivalued_image_coord": 647,
+  "records_with_out_of_area_image_coord": 13,
+  "photo_to_parcel_distance_m": {
+    "median": 1436,
+    "p75": 2436,
+    "p90": 3808,
+    "p99": 6582,
+    "max": 8559,
+    "pct_over_1km": 62.3,
+    "pct_over_3km": 16.2
+  },
+  "capture_event_parcel_spread_m": {
+    "median": 117,
+    "p90": 217,
+    "max": 913
+  },
+  "n_crop_classes": 12,
+  "top5_share_pct": 99.1,
+  "n_mixed_crop_declarations": 385,
+  "crop_stage_distribution": {
+    "vegetation": 8905,
+    "full_growth": 5138,
+    "flowering": 243,
+    "sown": 198,
+    "harvesting": 159
+  },
+  "pct_records_in_modal_stage_per_crop": {
+    "Banana": 81.1,
+    "Cassava": 75.0,
+    "Coconut": 98.9,
+    "Diploid Cotton (Paruththi)": 100.0,
+    "Fodder Sorghum": 50.0,
+    "Groundnut": 100.0,
+    "Maize": 74.0,
+    "Mango": 100.0,
+    "Marigold": 100.0,
+    "Rice (Paddy)": 80.1,
+    "Sorghum": 96.7,
+    "Sugarcane": 64.4
+  },
+  "parcel_polygons_supplied": false,
+  "note": "Supplied reference sample only. Records are points; no cadastral parcel geometry was supplied, so parcel boundaries must be acquired or derived."
+}

@@ -1,0 +1,216 @@
+{
+  "area_rule": "Crop area is aggregated at FIELD level for geometry_source == 'ftw_shared': a physical field holding several survey records is assigned ONE crop, the label with the largest apportioned area inside it (ties go to the alphabetically first label), and contributes the summed area of its records present in the audit. Totals equal the per-parcel apportioned totals. conflicted_area_ha is the area of fields whose records disagree on the label, so the majority rule does not hide the disagreement.",
+  "season": "Rabi 2024",
+  "split_regime": "3-event",
+  "independence_note": "The Agrisnet village figures are the published aggregate of the SAME Digital Crop Survey whose parcel-level sample was supplied as ground truth. This comparison therefore audits the DCS's own published numbers against satellite. It is not validation against an independent second survey.",
+  "scale_note": "Compared as crop SHARE of village cropped area, not absolute hectares: our parcel sample covers a fraction of each village, so an absolute comparison would measure sampling coverage rather than agreement.",
+  "registry_area_ha_total": 12096.9,
+  "registry_area_ha_in_scope": 11027.5,
+  "registry_out_of_scope_pct": 8.8,
+  "registry_crops_out_of_scope": [
+    "Acid Lime",
+    "Cassava",
+    "Lemon",
+    "Mango",
+    "Mungbean(Green Gram)",
+    "Palmyra",
+    "Sorghum",
+    "Urdbean(Black Gram)"
+  ],
+  "villages_registry_only": [],
+  "villages_ours_only": [],
+  "villages_matched": 21,
+  "largest_divergences": [
+    {
+      "village": "Rayagiri - Part-1",
+      "crop": "Sugarcane",
+      "registry_share": 0.5822,
+      "satellite_share": 0.2365,
+      "delta_share": -0.3457,
+      "registry_ha": 431.2,
+      "implied_ha_delta": -256.0,
+      "mean_confidence": 0.8231
+    },
+    {
+      "village": "Thenmalai - Part-2",
+      "crop": "Rice (Paddy)",
+      "registry_share": 0.1978,
+      "satellite_share": 0.5234,
+      "delta_share": 0.3256,
+      "registry_ha": 84.4,
+      "implied_ha_delta": 138.9,
+      "mean_confidence": 0.7289
+    },
+    {
+      "village": "Rayagiri - Part-1",
+      "crop": "Rice (Paddy)",
+      "registry_share": 0.3935,
+      "satellite_share": 0.6773,
+      "delta_share": 0.2838,
+      "registry_ha": 291.4,
+      "implied_ha_delta": 210.2,
+      "mean_confidence": 0.843
+    },
+    {
+      "village": "Inamkovilpatti",
+      "crop": "Coconut",
+      "registry_share": 0.0564,
+      "satellite_share": 0.2878,
+      "delta_share": 0.2314,
+      "registry_ha": 5.3,
+      "implied_ha_delta": 21.8,
+      "mean_confidence": 0.7198
+    },
+    {
+      "village": "Thenmalai - Part-2",
+      "crop": "Sugarcane",
+      "registry_share": 0.251,
+      "satellite_share": 0.0251,
+      "delta_share": -0.2259,
+      "registry_ha": 107.1,
+      "implied_ha_delta": -96.4,
+      "mean_confidence": 0.6436
+    },
+    {
+      "village": "Inamkovilpatti",
+      "crop": "Rice (Paddy)",
+      "registry_share": 0.8096,
+      "satellite_share": 0.588,
+      "delta_share": -0.2216,
+      "registry_ha": 76.1,
+      "implied_ha_delta": -20.8,
+      "mean_confidence": 0.758
+    },
+    {
+      "village": "Ariyur",
+      "crop": "Coconut",
+      "registry_share": 0.3138,
+      "satellite_share": 0.1022,
+      "delta_share": -0.2116,
+      "registry_ha": 42.4,
+      "implied_ha_delta": -28.6,
+      "mean_confidence": 0.7038
+    },
+    {
+      "village": "Patakurichi",
+      "crop": "Coconut",
+      "registry_share": 0.7057,
+      "satellite_share": 0.4999,
+      "delta_share": -0.2058,
+      "registry_ha": 237.9,
+      "implied_ha_delta": -69.4,
+      "mean_confidence": 0.7645
+    },
+    {
+      "village": "Dharugapuram",
+      "crop": "Rice (Paddy)",
+      "registry_share": 0.528,
+      "satellite_share": 0.7336,
+      "delta_share": 0.2057,
+      "registry_ha": 230.2,
+      "implied_ha_delta": 89.7,
+      "mean_confidence": 0.8718
+    },
+    {
+      "village": "Ramanathapuram",
+      "crop": "Sugarcane",
+      "registry_share": 0.2233,
+      "satellite_share": 0.02,
+      "delta_share": -0.2033,
+      "registry_ha": 53.3,
+      "implied_ha_delta": -48.5,
+      "mean_confidence": 0.6364
+    },
+    {
+      "village": "Ramanathapuram",
+      "crop": "Coconut",
+      "registry_share": 0.5325,
+      "satellite_share": 0.7111,
+      "delta_share": 0.1787,
+      "registry_ha": 127.1,
+      "implied_ha_delta": 42.6,
+      "mean_confidence": 0.7512
+    },
+    {
+      "village": "Dharugapuram",
+      "crop": "Sugarcane",
+      "registry_share": 0.1688,
+      "satellite_share": 0.0,
+      "delta_share": -0.1688,
+      "registry_ha": 73.6,
+      "implied_ha_delta": -73.6,
+      "mean_confidence": NaN
+    }
+  ],
+  "mean_abs_delta_share": 0.0664,
+  "crops_compared": [
+    "Banana",
+    "Coconut",
+    "Maize",
+    "Rice (Paddy)",
+    "Sugarcane"
+  ],
+  "n_rows": 90,
+  "systematic_bias_by_crop": [
+    {
+      "crop": "Sugarcane",
+      "registry_share": 0.1372,
+      "satellite_share": 0.0723,
+      "bias": -0.0649
+    },
+    {
+      "crop": "Coconut",
+      "registry_share": 0.1899,
+      "satellite_share": 0.1831,
+      "bias": -0.0068
+    },
+    {
+      "crop": "Banana",
+      "registry_share": 0.0336,
+      "satellite_share": 0.0326,
+      "bias": -0.001
+    },
+    {
+      "crop": "Maize",
+      "registry_share": 0.084,
+      "satellite_share": 0.105,
+      "bias": 0.021
+    },
+    {
+      "crop": "Rice (Paddy)",
+      "registry_share": 0.6283,
+      "satellite_share": 0.6642,
+      "bias": 0.036
+    }
+  ],
+  "attribution_test": {
+    "by_recorded_code": {
+      "mean_abs_delta_share_all": 0.0569,
+      "viswanathaperi_pair": 0.0183
+    },
+    "by_polygon_membership": {
+      "mean_abs_delta_share_all": 0.0655,
+      "viswanathaperi_pair": 0.1053
+    },
+    "pair_geometry": {
+      "polygon_names": {
+        "911": "Viswanathaperi - Part-1",
+        "912": "Viswanathaperi - Part-2"
+      },
+      "records_by_recorded_code_x_containing_polygon": {
+        "911": {
+          "911": 398,
+          "912": 720
+        },
+        "912": {
+          "911": 1175,
+          "912": 0
+        }
+      },
+      "n_records_all_villages_code_ne_polygon": 1930,
+      "n_records_all_villages": 14611
+    },
+    "scope_note": "The Viswanathaperi pair figures are a two-village subset; the all-village figures are the taluk-wide comparison. Do not quote the pair gap as if it were taluk-wide.",
+    "conclusion": "The registry is compiled from the recorded village codes, so its agreement with them is expected by construction and cannot show which attribution is correct. The only independent evidence is geometric: every record coded 912 falls inside polygon Part-1 of 911/912 (counts per recorded code by containing polygon are in pair_geometry). That points to a boundary or labelling error in the supplied layer but does not prove it; it needs cadastral or field confirmation from FarmwiseAI."
+  }
+}

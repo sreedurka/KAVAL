@@ -1,0 +1,82 @@
+{
+  "acquired_on": "2026-09-30",
+  "output": "/home/user/FM_AI/KAVAL/data/raw/tn_crop_registry.csv",
+  "rows": 2618,
+  "rows_by_level": {
+    "village": 772,
+    "taluk": 1327,
+    "district": 519
+  },
+  "failures": [],
+  "checks": {
+    "village_sum_vs_source_total_Rabi_2024": {
+      "villages_with_source_total": 21,
+      "mismatches": {}
+    },
+    "taluk_taluk_s2_Tenkasi_Agriculture": {
+      "rows": 361
+    },
+    "district_district_s2_Agriculture": {
+      "rows": 104
+    },
+    "taluk_taluk_s2_Tenkasi_Horticultural": {
+      "rows": 282
+    },
+    "district_district_s2_Horticultural": {
+      "rows": 99
+    },
+    "village_sum_vs_source_total_Summer_2025": {
+      "villages_with_source_total": 21,
+      "mismatches": {}
+    },
+    "taluk_taluk_s1_Tenkasi_Agriculture": {
+      "rows": 139
+    },
+    "district_district_s1_Agriculture": {
+      "rows": 47
+    },
+    "taluk_taluk_s1_Tenkasi_Horticultural": {
+      "rows": 203
+    },
+    "district_district_s1_Horticultural": {
+      "rows": 70
+    },
+    "village_sum_vs_source_total_Kharif_2025": {
+      "villages_with_source_total": 21,
+      "mismatches": {}
+    },
+    "taluk_taluk_s3_Tenkasi_Agriculture": {
+      "rows": 139
+    },
+    "district_district_s3_Agriculture": {
+      "rows": 81
+    },
+    "taluk_taluk_s3_Tenkasi_Horticultural": {
+      "rows": 203
+    },
+    "district_district_s3_Horticultural": {
+      "rows": 115
+    },
+    "des_handbook": {
+      "tenkasi_values_ha": {
+        "Rice (Paddy)": 35760,
+        "Maize": 16561,
+        "Sugarcane": 1855
+      },
+      "note": "FY 2022-23, annual, not season-matched to Rabi 2024"
+    }
+  },
+  "village_rabi2024": {
+    "villages": 21,
+    "evaluable_area_ha": {
+      "Banana": 207.6,
+      "Coconut": 1657.8,
+      "Maize": 544.9,
+      "Rice (Paddy)": 7685.6,
+      "Sugarcane": 931.6
+    },
+    "total_area_ha": 12096.9
+  },
+  "independence_caveat": "DCS aggregate; same programme as the supplied ground truth.",
+  "licence": "No licence or terms-of-use statement found (tnagrisnet /home/terms is 404, no robots.txt; des.tn.gov.in returned HTTP 500 for its terms pages). Public Government of Tamil Nadu statistics. Treated as: attribute the source, internal analysis only, confirm terms before redistributing the raw snapshots."
+}

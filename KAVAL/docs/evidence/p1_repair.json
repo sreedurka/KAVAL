@@ -1,0 +1,21 @@
+{
+  "input_records": 14643,
+  "blank_subdivision": 283,
+  "photo_coord_multivalued": 647,
+  "photo_coord_out_of_area": 13,
+  "parcel_coord_invalid": 0,
+  "mixed_crop_records": 385,
+  "survey_date_disagreement": 0,
+  "timestamp_format_defect": "`timestamp` is MM-DD-YYYY and `image_timestamp` is DD-MM-YYYY within the same row; '13-11-2024' is DD-MM in both. `image_timestamp` taken as authoritative.",
+  "survey_date_unparsed": 0,
+  "survey_date_range": [
+    "2024-11-06",
+    "2024-11-13"
+  ],
+  "survey_duration_days": 8,
+  "capture_events": 3204,
+  "max_bag_size": 43,
+  "duplicate_parcel_keys": 32,
+  "output_records": 14611,
+  "quarantined_records": 0
+}

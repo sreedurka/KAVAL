@@ -1,0 +1,67 @@
+{
+  "n_parcels": 14611,
+  "timesteps": 12,
+  "months": [
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05"
+  ],
+  "start_month_index": 5,
+  "s2_bands_present": [
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B8A",
+    "B11",
+    "B12"
+  ],
+  "s1_bands_present": [
+    "VV",
+    "VH"
+  ],
+  "s2_observed_fraction": 0.9218,
+  "s1_observed_fraction": 0.9999,
+  "s2_observed_by_month": {
+    "2024-06": 0.885,
+    "2024-07": 0.817,
+    "2024-08": 1.0,
+    "2024-09": 0.993,
+    "2024-10": 0.999,
+    "2024-11": 0.381,
+    "2024-12": 0.988,
+    "2025-01": 1.0,
+    "2025-02": 1.0,
+    "2025-03": 1.0,
+    "2025-04": 1.0,
+    "2025-05": 1.0
+  },
+  "precipitation_source": "CHIRPS monthly, taluk mean, mm converted to m",
+  "temperature_source": "NASA POWER (MERRA-2) monthly T2M at the taluk centroid, Kelvin; substitutes for ERA5-Land",
+  "temperature_months_present": 12,
+  "terrain_source": "Copernicus DEM GLO-30 elevation and slope, substituted for SRTM in Presto's static slot",
+  "terrain_observed_fraction": 0.9999,
+  "masked_fraction": 0.0507,
+  "embedding_dim": 128,
+  "embeddings_finite": true,
+  "meteorology_caveat": "Temperature and precipitation are reanalysis products at ~0.5 deg and 0.05 deg respectively, so both are constant across the taluk within a month. They supply seasonality, not spatial signal.",
+  "input_granularity": "One series per parcel: the monthly value is the MEAN over the parcel's pixels (p1_acquire_stac.py), not a per-pixel series pooled afterwards. Presto was pretrained per pixel.",
+  "usage": "Frozen pretrained encoder, no fine-tuning; the 128-d embedding is fed to the same MLP head and folds as GSE (p4 section C).",
+  "s2_worst_month": {
+    "month": "2024-11",
+    "observed_fraction": 0.381
+  },
+  "domain_shift_note": "Presto was pretrained on Sentinel-2 L1C top-of-atmosphere; we feed L2A surface reflectance. A small systematic shift, reported rather than corrected. Any GSE-vs-Presto gap should be read with this in mind."
+}

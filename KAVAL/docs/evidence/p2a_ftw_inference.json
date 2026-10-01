@@ -1,0 +1,265 @@
+{
+  "script": "KAVAL/scripts/p2a_ftw_inference.py",
+  "started_utc": "2026-09-30T22:35:44+00:00",
+  "runtime_s": null,
+  "out_dir": "/home/user/Downloads/FM_AI/KAVAL/data/interim/ftw_run",
+  "is_real_path": true,
+  "model": "FTW_PRUE_EFNET_B7_CCBY",
+  "command": null,
+  "parameters": {
+    "year": 2024,
+    "bbox": "77.2704,9.1744,77.5500,9.4198",
+    "bbox_source": "Taluk_boundary.geojson total_bounds rounded to 4 dp",
+    "stac_host": "mspc",
+    "cloud_cover_max": 20,
+    "buffer_days": 15,
+    "gpu": -1,
+    "inference_and_polygonize": "ftw defaults (no overrides)"
+  },
+  "s2_items": {
+    "window_a": "S2A_MSIL2A_20240507T050651_R019_T43PGL_20240507T100654",
+    "window_b": "S2B_MSIL2A_20241208T051119_R019_T43PGL_20241208T075639"
+  },
+  "s2_items_expected": {
+    "window_a": "S2A_MSIL2A_20240507T050651_R019_T43PGL_20240507T100654",
+    "window_b": "S2B_MSIL2A_20241208T051119_R019_T43PGL_20241208T075639"
+  },
+  "s2_items_match_expected": true,
+  "scene_selection": {
+    "selected": [
+      {
+        "id": "S2A_MSIL2A_20240507T050651_R019_T43PGL_20240507T100654",
+        "date": "2024-05-07"
+      },
+      {
+        "id": "S2B_MSIL2A_20241208T051119_R019_T43PGL_20241208T075639",
+        "date": "2024-12-08"
+      }
+    ],
+    "cloud_cover_pct": [
+      7.81,
+      13.92
+    ],
+    "candidates": [
+      1,
+      1
+    ],
+    "warnings": [
+      "/home/user/Downloads/FM_AI/.venv/lib/python3.12/site-packages/ftw_tools/download/download_img.py:713: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'time', 'bands'} to avoid an error in the future.",
+      "Processing version 5.11 unknown or untested (< 3.0 or >= 4.0). Inference quality might decrease.",
+      "Rescaling data to processing version 3.0 from processing version 5.11.",
+      "Warning: Processing version of imagery differs: 5.1 vs 5.11. Continuing anyway."
+    ],
+    "crop_calendar": {
+      "start": "2024-05-19",
+      "start_doy": 140,
+      "end": "2024-11-23",
+      "end_doy": 328
+    }
+  },
+  "versions": {
+    "python": "3.12.14",
+    "ftw-tools": "2.0.0b5",
+    "torch": "2.10.0",
+    "odc-stac": "0.5.3",
+    "pystac-client": "0.9.0",
+    "planetary-computer": "1.0.0",
+    "rasterio": "1.5.1",
+    "segmentation-models-pytorch": "0.5.0",
+    "timm": "1.0.30",
+    "geopandas": "1.2.0"
+  },
+  "outputs": {
+    "inference_data.tif": {
+      "sha256": "27e90725539e75f4d338e7a14c7f8ba18e36734d9bfc19af6461b0e6a7d2d02a",
+      "bytes": 108860205
+    },
+    "inference_output.tif": {
+      "sha256": "b1f4c609a307a4e9bb1f099ad9c323df37cd184f9a7fffe84c041697ab3a5a09",
+      "bytes": 839580
+    },
+    "polygons.parquet": {
+      "sha256": "f46a99e673fb797e4e0b95fd0116b95f804af3351bb1f1fbd778c504acd745f0",
+      "bytes": 2622055
+    }
+  },
+  "inference_data": {
+    "width": 3093,
+    "height": 2737,
+    "count": 8,
+    "dtype": "uint16",
+    "crs": "EPSG:32643",
+    "transform": [
+      10.0,
+      0.0,
+      749310.0,
+      0.0,
+      -10.0,
+      1042290.0
+    ],
+    "tags": {
+      "TIFFTAG_DATETIME": "2024:12:08 05:11:19",
+      "AREA_OR_POINT": "Area"
+    }
+  },
+  "inference_output": {
+    "width": 3093,
+    "height": 2737,
+    "count": 1,
+    "dtype": "uint8",
+    "crs": "EPSG:32643",
+    "transform": [
+      10.0,
+      0.0,
+      749310.0,
+      0.0,
+      -10.0,
+      1042290.0
+    ],
+    "tags": {
+      "TIFFTAG_DATETIME": "2024:12:08 05:11:19",
+      "AREA_OR_POINT": "Area"
+    }
+  },
+  "polygons": {
+    "count": 64708,
+    "crs": "32643",
+    "area_ha": 13061.85
+  },
+  "reproduction": {
+    "method": "scratch re-run of this script, compared file by file",
+    "command": [
+      "/home/user/Downloads/FM_AI/.venv/bin/ftw",
+      "inference",
+      "all",
+      "-o",
+      "/tmp/claude-1000/-home-user-Downloads-FM-AI/68ab887f-4be5-4ced-8789-23bbe8670f1e/scratchpad/ftw_repro",
+      "-m",
+      "FTW_PRUE_EFNET_B7_CCBY",
+      "--year",
+      "2024",
+      "--bbox",
+      "77.2704,9.1744,77.5500,9.4198",
+      "--cloud_cover_max",
+      "20",
+      "--buffer_days",
+      "15",
+      "--stac_host",
+      "mspc",
+      "--gpu",
+      "-1",
+      "--overwrite",
+      "--verbose"
+    ],
+    "started_utc": "2026-09-30T21:33:27+00:00",
+    "runtime_s": 380.2,
+    "s2_items": {
+      "window_a": "S2A_MSIL2A_20240507T050651_R019_T43PGL_20240507T100654",
+      "window_b": "S2B_MSIL2A_20241208T051119_R019_T43PGL_20241208T075639"
+    },
+    "comparison": {
+      "reference_dir": "/home/user/Downloads/FM_AI/KAVAL/data/interim/ftw_run",
+      "sha256_identical": {
+        "inference_data.tif": true,
+        "inference_output.tif": true,
+        "polygons.parquet": false
+      },
+      "inference_data": {
+        "same_grid": true,
+        "bands": [
+          {
+            "band": 1,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 2,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 3,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 4,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 5,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 6,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 7,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          },
+          {
+            "band": 8,
+            "identical_frac": 1.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0
+          }
+        ],
+        "identical": true
+      },
+      "inference_output": {
+        "same_grid": true,
+        "identical": true,
+        "pixel_agreement": 1.0,
+        "pixels_differing": 0,
+        "pixels_total": 8465541,
+        "confusion_ref_by_new": {
+          "ref0_new0": 4186580,
+          "ref0_new1": 0,
+          "ref0_new2": 0,
+          "ref1_new0": 0,
+          "ref1_new1": 1403029,
+          "ref1_new2": 0,
+          "ref2_new0": 0,
+          "ref2_new1": 0,
+          "ref2_new2": 2875932
+        }
+      },
+      "polygons": {
+        "count_new": 64708,
+        "count_ref": 64708,
+        "area_ha_new": 13061.85,
+        "area_ha_ref": 13061.85,
+        "union_iou": 1.0,
+        "matched_iou": {
+          "median": 1.0,
+          "mean": 1.0,
+          "frac_iou_1": 1.0,
+          "frac_iou_over_0.9": 1.0,
+          "frac_iou_over_0.5": 1.0,
+          "ref_polygons_with_no_overlap": 0
+        }
+      },
+      "verdict": {
+        "tolerance": {
+          "inference_output_pixel_agreement_min": 0.999,
+          "polygon_count_rel_diff_max": 0.001,
+          "area_rel_diff_max": 0.001,
+          "union_iou_min": 0.999
+        },
+        "result": "reproduces (within tolerance)"
+      }
+    }
+  }
+}

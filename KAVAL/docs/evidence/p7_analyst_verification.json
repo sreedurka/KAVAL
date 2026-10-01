@@ -1,0 +1,1599 @@
+{
+  "gate": "plan.md \u00a76 Phase 7 \u2014 all six brief queries answered end-to-end, each traceable to tool calls",
+  "headline_regime": "3-event",
+  "tools_available": [
+    "query_parcels",
+    "crop_area_summary",
+    "compare_to_registry",
+    "confusion_report",
+    "leakage_ladder",
+    "route_verification_budget",
+    "auto_clear_summary",
+    "status_summary",
+    "ground_truth_forensics",
+    "get_parcel",
+    "calibration_report",
+    "export_layer"
+  ],
+  "verifies": "the TOOL LAYER; the offline keyword planner; and, per provider in llm_planner, LLM planning by that specific model",
+  "does_not_verify": "Planning by any model not listed under llm_planner. In particular the project's intended model (Claude, ANTHROPIC_API_KEY) is not verified here; a small local open-weight model passing does not imply a frontier model would behave the same, or vice versa. The offline_planner section is keyword routing, not LLM planning.",
+  "extended_queries": [
+    {
+      "question": "Tell me about parcel 152_399_1.",
+      "tool_calls": [
+        {
+          "tool": "get_parcel",
+          "args": {
+            "parcel_id": "152_399_1"
+          },
+          "ok": true,
+          "rows": 1,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": [
+            "parcel_id",
+            "village",
+            "survey_no",
+            "subdivision",
+            "declared_crop",
+            "predicted_crop",
+            "confidence_calibrated",
+            "confidence_raw",
+            "agreement_status",
+            "trust_score",
+            "p_label_wrong",
+            "suggested_crop",
+            "evidence",
+            "area_m2"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "How well calibrated is the model's confidence?",
+      "tool_calls": [
+        {
+          "tool": "calibration_report",
+          "args": {},
+          "ok": true,
+          "rows": 7,
+          "split_regime": "3-event",
+          "sources": [
+            "docs/evidence/p6_audit.json"
+          ],
+          "payload_keys": [
+            "method",
+            "ece_raw",
+            "ece_calibrated",
+            "mean_confidence_raw",
+            "mean_confidence_calibrated",
+            "actual_accuracy",
+            "ece_improvement"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "brief_queries": [
+    {
+      "question": "Using the supplied satellite embeddings, classify all agricultural parcels in the selected study area. Show crop-wise cultivated area and confidence, and highlight low-confidence parcels that require field verification.",
+      "tool_calls": [
+        {
+          "tool": "crop_area_summary",
+          "args": {
+            "group_by": "taluk"
+          },
+          "ok": true,
+          "rows": 6,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[6]"
+        },
+        {
+          "tool": "query_parcels",
+          "args": {
+            "status": "UNCERTAIN",
+            "limit": 5
+          },
+          "ok": true,
+          "rows": 8429,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[5]"
+        },
+        {
+          "tool": "status_summary",
+          "args": {},
+          "ok": true,
+          "rows": 4,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[4]"
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "Show crop-wise area for the selected village and highlight parcels below 80% confidence.",
+      "tool_calls": [
+        {
+          "tool": "crop_area_summary",
+          "args": {
+            "group_by": "village"
+          },
+          "ok": true,
+          "rows": 90,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[40]"
+        },
+        {
+          "tool": "query_parcels",
+          "args": {
+            "max_confidence": 0.8,
+            "limit": 5
+          },
+          "ok": true,
+          "rows": 4433,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[5]"
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "Compare the performance obtained from Google Satellite Embeddings and Presto embeddings where both are supplied.",
+      "tool_calls": [
+        {
+          "tool": "leakage_ladder",
+          "args": {},
+          "ok": true,
+          "rows": 7,
+          "split_regime": "all four regimes reported side by side",
+          "sources": [
+            "docs/evidence/p4_results.json"
+          ],
+          "payload_keys": [
+            "ladder",
+            "headline",
+            "heads",
+            "sources",
+            "source_comparisons",
+            "sources_pending",
+            "presto_caveats"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "Show villages where predicted crop area differs significantly from the supplied registry.",
+      "tool_calls": [
+        {
+          "tool": "compare_to_registry",
+          "args": {
+            "min_registry_ha": 1.0
+          },
+          "ok": true,
+          "rows": 76,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/village_registry.parquet",
+            "data/raw/tn_crop_registry.csv (TN Agrisnet DCS village-wise)"
+          ],
+          "payload_keys": [
+            "rows",
+            "independence_caveat",
+            "scale_caveat",
+            "systematic_bias_by_crop",
+            "registry_out_of_scope_pct",
+            "season",
+            "area_rule"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "List the crop classes with the highest confusion and show representative errors.",
+      "tool_calls": [
+        {
+          "tool": "confusion_report",
+          "args": {},
+          "ok": true,
+          "rows": 3,
+          "split_regime": "3-event",
+          "sources": [
+            "docs/evidence/p4_results.json"
+          ],
+          "payload_keys": [
+            "per_class",
+            "confusion_matrix",
+            "top_confusions"
+          ]
+        },
+        {
+          "tool": "query_parcels",
+          "args": {
+            "status": "DISPUTED",
+            "limit": 5
+          },
+          "ok": true,
+          "rows": 784,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[5]"
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "Export the classified parcel layer, confidence values and crop-area summary.",
+      "tool_calls": [
+        {
+          "tool": "export_layer",
+          "args": {
+            "fmt": "geojson"
+          },
+          "ok": true,
+          "rows": 14310,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": [
+            "url",
+            "fmt",
+            "rows",
+            "columns",
+            "what"
+          ]
+        },
+        {
+          "tool": "crop_area_summary",
+          "args": {
+            "group_by": "village"
+          },
+          "ok": true,
+          "rows": 90,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": "list[40]"
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "product_queries": [
+    {
+      "question": "Where should we send 500 surveyors next season?",
+      "tool_calls": [
+        {
+          "tool": "route_verification_budget",
+          "args": {
+            "budget": 500
+          },
+          "ok": true,
+          "rows": 500,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": [
+            "economics",
+            "worklist"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "Which parcels can we stop visiting?",
+      "tool_calls": [
+        {
+          "tool": "auto_clear_summary",
+          "args": {},
+          "ok": true,
+          "rows": 4825,
+          "split_regime": "3-event",
+          "sources": [
+            "data/derived/audit.parquet"
+          ],
+          "payload_keys": [
+            "parcels",
+            "pct_of_parcels",
+            "area_ha",
+            "surveyor_days_saved",
+            "baseline_surveyor_days",
+            "expected_residual_error_rate",
+            "expected_parcels_wrongly_cleared",
+            "residual_note",
+            "cost_assumption"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "question": "How trustworthy is the ground truth itself?",
+      "tool_calls": [
+        {
+          "tool": "ground_truth_forensics",
+          "args": {},
+          "ok": true,
+          "rows": 1,
+          "split_regime": null,
+          "sources": [
+            "docs/evidence/gt_forensics.json"
+          ],
+          "payload_keys": [
+            "n_records",
+            "n_villages",
+            "n_capture_events",
+            "label_inflation_factor",
+            "max_parcels_per_capture_event",
+            "pct_records_in_multi_parcel_events",
+            "capture_events_with_constant_field",
+            "capture_events_with_mixed_crop_label",
+            "per_crop_effective_n",
+            "records_with_multivalued_image_coord",
+            "records_with_out_of_area_image_coord",
+            "photo_to_parcel_distance_m",
+            "capture_event_parcel_spread_m",
+            "n_crop_classes",
+            "top5_share_pct",
+            "n_mixed_crop_declarations",
+            "crop_stage_distribution",
+            "pct_records_in_modal_stage_per_crop",
+            "parcel_polygons_supplied",
+            "note"
+          ]
+        }
+      ],
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "brief_queries_passing": 6,
+  "brief_queries_total": 6,
+  "product_queries_passing": 3,
+  "all_tools_exercised": [
+    "auto_clear_summary",
+    "calibration_report",
+    "compare_to_registry",
+    "confusion_report",
+    "crop_area_summary",
+    "export_layer",
+    "get_parcel",
+    "ground_truth_forensics",
+    "leakage_ladder",
+    "query_parcels",
+    "route_verification_budget",
+    "status_summary"
+  ],
+  "tools_never_exercised": [],
+  "tool_layer_gate_passes": true,
+  "offline_planner": {
+    "extended": [
+      {
+        "question": "Tell me about parcel 152_399_1.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "get_parcel"
+        ],
+        "tool_calls": [
+          {
+            "tool": "get_parcel",
+            "args": {
+              "parcel_id": "152_399_1"
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "152",
+          "399",
+          "97.1",
+          "0.85",
+          "81.7",
+          "743"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Parcel 152_399_1 (Rayagiri - Part-2, survey no 399/1): the surveyor declared Rice (Paddy); the satellite predicts Sugarcane at calibrated confidence 97.1%. Agreement status DISPUTED; Record Trust Score 0.85; P(label need",
+        "passed": true
+      },
+      {
+        "question": "How well calibrated is the model's confidence?",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "calibration_report"
+        ],
+        "tool_calls": [
+          {
+            "tool": "calibration_report",
+            "args": {}
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "94.2",
+          "81.7",
+          "0.1247",
+          "0.0046",
+          "81.7"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Raw confidence averaged 94.2% against an actual accuracy of 81.7%: expected calibration error 0.1247. After cross-fitted isotonic calibration it is 0.0046, with mean confidence 81.7% [split regime: 3-event].",
+        "passed": true
+      }
+    ],
+    "mode_with_key_unset": "offline",
+    "tools_endpoint_planner": "offline",
+    "function": [
+      {
+        "question": "Using the supplied satellite embeddings, classify all agricultural parcels in the selected study area. Show crop-wise cultivated area and confidence, and highlight low-confidence parcels that require field verification.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "crop_area_summary",
+          "status_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "taluk"
+            }
+          },
+          {
+            "tool": "status_summary",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "max_confidence": 0.8,
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "9,498",
+          "1,523.2",
+          "85.3",
+          "2,543",
+          "335.7",
+          "76.9",
+          "1,488",
+          "160.2"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "Satellite classification, crop-wise for the whole study area [split regime: 3-event]:",
+        "passed": true
+      },
+      {
+        "question": "Show crop-wise area for the selected village and highlight parcels below 80% confidence.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "crop_area_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "village"
+            }
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "max_confidence": 0.8,
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "90",
+          "4,433",
+          "80.0"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "No village was named in the question, so the offline planner cannot pick 'the selected village' for you. Ask again naming one of: Ariyur, Cuddalor, Dharugapuram, Inamkovilpatti, Naranapuram - Part-1, Naranapuram - Part-2",
+        "passed": true
+      },
+      {
+        "question": "Compare the performance obtained from Google Satellite Embeddings and Presto embeddings where both are supplied.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "leakage_ladder"
+        ],
+        "tool_calls": [
+          {
+            "tool": "leakage_ladder",
+            "args": {}
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "64",
+          "81.5",
+          "0.563",
+          "12",
+          "73.7",
+          "0.399",
+          "76",
+          "81.7"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Embedding sources compared on the same rows, each labelled with its split regime:",
+        "passed": true
+      },
+      {
+        "question": "Show villages where predicted crop area differs significantly from the supplied registry.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "compare_to_registry"
+        ],
+        "tool_calls": [
+          {
+            "tool": "compare_to_registry",
+            "args": {
+              "min_registry_ha": 1.0
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "2024",
+          "76",
+          "58.2",
+          "23.6",
+          "-34.6",
+          "85",
+          "82.3",
+          "19.8"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Satellite crop share versus the Agrisnet Rabi 2024 registry, largest gaps first [split regime: 3-event; 76 village-crop rows with at least 1 ha in the registry]:",
+        "passed": true
+      },
+      {
+        "question": "List the crop classes with the highest confusion and show representative errors.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "confusion_report",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "confusion_report",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "status": "DISPUTED",
+              "crop": "Rice (Paddy)",
+              "limit": 50
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "457",
+          "388",
+          "320",
+          "280",
+          "270",
+          "0.77",
+          "0.77",
+          "0.77"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 40,
+        "answer_excerpt": "Most-confused crop pairs, out-of-fold records [split regime: 3-event; model MLP]:",
+        "passed": true
+      },
+      {
+        "question": "Export the classified parcel layer, confidence values and crop-area summary.",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "export_layer",
+          "export_layer",
+          "crop_area_summary",
+          "export_layer"
+        ],
+        "tool_calls": [
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "geojson"
+            }
+          },
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "csv"
+            }
+          },
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "village"
+            }
+          },
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "csv",
+              "budget": 500
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "14,310",
+          "14,310",
+          "90",
+          "500",
+          "500"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Downloads, prepared by the export_layer tool (the files stream when these URLs are fetched, with the same rows and thresholds as the screens):",
+        "passed": true
+      },
+      {
+        "question": "Where should we send 500 surveyors next season?",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "route_verification_budget"
+        ],
+        "tool_calls": [
+          {
+            "tool": "route_verification_budget",
+            "args": {
+              "budget": 500
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "500",
+          "500",
+          "500",
+          "3.49",
+          "142.8",
+          "390.5",
+          "53.9",
+          "6.0"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 15,
+        "answer_excerpt": "The tool budgets field VISITS, not surveyors, so 500 is read as 500 parcel visits.",
+        "passed": true
+      },
+      {
+        "question": "Which parcels can we stop visiting?",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "auto_clear_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "auto_clear_summary",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "status": "CONFIRMED",
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "4,825",
+          "33.7",
+          "870.8",
+          "80.0",
+          "0.65",
+          "193.0",
+          "572.4",
+          "25"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "4,825 parcels (33.7% of the audited set, 870.8 ha) are CONFIRMED: satellite agrees with the survey at calibrated confidence of at least 80.0% on a record with trust of at least 0.65 [split regime: 3-event]. Not revisitin",
+        "passed": true
+      },
+      {
+        "question": "How trustworthy is the ground truth itself?",
+        "via": "function",
+        "planner": "offline",
+        "tools_chosen": [
+          "ground_truth_forensics"
+        ],
+        "tool_calls": [
+          {
+            "tool": "ground_truth_forensics",
+            "args": {}
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "14,643",
+          "3,204",
+          "21",
+          "4.57",
+          "93.8",
+          "43",
+          "3,204",
+          "1,436"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "The supplied survey sample holds 14,643 records from only 3,204 capture events (photographs) across 21 villages: a label inflation factor of 4.57. 93.8% of records share a photograph with other parcels, up to 43 parcels ",
+        "passed": true
+      }
+    ],
+    "http": [
+      {
+        "question": "Using the supplied satellite embeddings, classify all agricultural parcels in the selected study area. Show crop-wise cultivated area and confidence, and highlight low-confidence parcels that require field verification.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "crop_area_summary",
+          "status_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "taluk"
+            }
+          },
+          {
+            "tool": "status_summary",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "max_confidence": 0.8,
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "9,498",
+          "1,523.2",
+          "85.3",
+          "2,543",
+          "335.7",
+          "76.9",
+          "1,488",
+          "160.2"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "Satellite classification, crop-wise for the whole study area [split regime: 3-event]:",
+        "passed": true
+      },
+      {
+        "question": "Show crop-wise area for the selected village and highlight parcels below 80% confidence.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "crop_area_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "village"
+            }
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "max_confidence": 0.8,
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "90",
+          "4,433",
+          "80.0"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "No village was named in the question, so the offline planner cannot pick 'the selected village' for you. Ask again naming one of: Ariyur, Cuddalor, Dharugapuram, Inamkovilpatti, Naranapuram - Part-1, Naranapuram - Part-2",
+        "passed": true
+      },
+      {
+        "question": "Compare the performance obtained from Google Satellite Embeddings and Presto embeddings where both are supplied.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "leakage_ladder"
+        ],
+        "tool_calls": [
+          {
+            "tool": "leakage_ladder",
+            "args": {}
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "64",
+          "81.5",
+          "0.563",
+          "12",
+          "73.7",
+          "0.399",
+          "76",
+          "81.7"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Embedding sources compared on the same rows, each labelled with its split regime:",
+        "passed": true
+      },
+      {
+        "question": "Show villages where predicted crop area differs significantly from the supplied registry.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "compare_to_registry"
+        ],
+        "tool_calls": [
+          {
+            "tool": "compare_to_registry",
+            "args": {
+              "min_registry_ha": 1.0
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "2024",
+          "76",
+          "58.2",
+          "23.6",
+          "-34.6",
+          "85",
+          "82.3",
+          "19.8"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Satellite crop share versus the Agrisnet Rabi 2024 registry, largest gaps first [split regime: 3-event; 76 village-crop rows with at least 1 ha in the registry]:",
+        "passed": true
+      },
+      {
+        "question": "List the crop classes with the highest confusion and show representative errors.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "confusion_report",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "confusion_report",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "status": "DISPUTED",
+              "crop": "Rice (Paddy)",
+              "limit": 50
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "457",
+          "388",
+          "320",
+          "280",
+          "270",
+          "0.77",
+          "0.77",
+          "0.77"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 40,
+        "answer_excerpt": "Most-confused crop pairs, out-of-fold records [split regime: 3-event; model MLP]:",
+        "passed": true
+      },
+      {
+        "question": "Export the classified parcel layer, confidence values and crop-area summary.",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "export_layer",
+          "export_layer",
+          "crop_area_summary",
+          "export_layer"
+        ],
+        "tool_calls": [
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "geojson"
+            }
+          },
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "csv"
+            }
+          },
+          {
+            "tool": "crop_area_summary",
+            "args": {
+              "group_by": "village"
+            }
+          },
+          {
+            "tool": "export_layer",
+            "args": {
+              "fmt": "csv",
+              "budget": 500
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "14,310",
+          "14,310",
+          "90",
+          "500",
+          "500"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "Downloads, prepared by the export_layer tool (the files stream when these URLs are fetched, with the same rows and thresholds as the screens):",
+        "passed": true
+      },
+      {
+        "question": "Where should we send 500 surveyors next season?",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "route_verification_budget"
+        ],
+        "tool_calls": [
+          {
+            "tool": "route_verification_budget",
+            "args": {
+              "budget": 500
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "500",
+          "500",
+          "500",
+          "3.49",
+          "142.8",
+          "390.5",
+          "53.9",
+          "6.0"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 15,
+        "answer_excerpt": "The tool budgets field VISITS, not surveyors, so 500 is read as 500 parcel visits.",
+        "passed": true
+      },
+      {
+        "question": "Which parcels can we stop visiting?",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "auto_clear_summary",
+          "query_parcels"
+        ],
+        "tool_calls": [
+          {
+            "tool": "auto_clear_summary",
+            "args": {}
+          },
+          {
+            "tool": "query_parcels",
+            "args": {
+              "status": "CONFIRMED",
+              "limit": 10
+            }
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "4,825",
+          "33.7",
+          "870.8",
+          "80.0",
+          "0.65",
+          "193.0",
+          "572.4",
+          "25"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 10,
+        "answer_excerpt": "4,825 parcels (33.7% of the audited set, 870.8 ha) are CONFIRMED: satellite agrees with the survey at calibrated confidence of at least 80.0% on a record with trust of at least 0.65 [split regime: 3-event]. Not revisitin",
+        "passed": true
+      },
+      {
+        "question": "How trustworthy is the ground truth itself?",
+        "via": "http",
+        "planner": "offline",
+        "tools_chosen": [
+          "ground_truth_forensics"
+        ],
+        "tool_calls": [
+          {
+            "tool": "ground_truth_forensics",
+            "args": {}
+          }
+        ],
+        "failures": [],
+        "grounded_numbers_sample": [
+          "14,643",
+          "3,204",
+          "21",
+          "4.57",
+          "93.8",
+          "43",
+          "3,204",
+          "1,436"
+        ],
+        "language_violations": [],
+        "cited_parcel_ids": 0,
+        "answer_excerpt": "The supplied survey sample holds 14,643 records from only 3,204 capture events (photographs) across 21 villages: a label inflation factor of 4.57. 93.8% of records share a photograph with other parcels, up to 43 parcels ",
+        "passed": true
+      }
+    ],
+    "nonsense": {
+      "question": "What is the capital of France?",
+      "status_code": 200,
+      "planner": "offline",
+      "tool_calls": [],
+      "answer_excerpt": "The offline planner did not recognise this question, and it does not guess. It can answer:\n- the audit trail of one named parcel (by parcel_id)\n- parcels survey",
+      "passed": true
+    },
+    "override": {
+      "env": "KAVAL_ANALYST_PLANNER=offline with a key set",
+      "planner": "offline",
+      "tools_endpoint_planner": "offline",
+      "passed": true
+    },
+    "function_passing": 9,
+    "http_passing": 9,
+    "total": 9,
+    "passes": true,
+    "what_this_shows": "With no ANTHROPIC_API_KEY, /analyst/query answers all nine questions through the offline rule-based planner: keyword routing to the same typed tools, answers composed only from tool payloads, every metric-bearing citation carrying its split regime. It does NOT show that an LLM plans correctly over the tools."
+  },
+  "llm_planner": {
+    "gemini (chain: gemini-3.8-flash -> gemini-3-flash-preview -> gemini-flash-lite-latest)": {
+      "provider": "gemini (chain: gemini-3.8-flash -> gemini-3-flash-preview -> gemini-flash-lite-latest)",
+      "answered_by": {
+        "gemini:gemini-flash-lite-latest": 9
+      },
+      "scope": "planning by THIS model only; not evidence about any other model",
+      "questions": [
+        {
+          "question": "Using the supplied satellite embeddings, classify all agricultural parcels in the selected study area. Show crop-wise cultivated area and confidence, and highlight low-confidence parcels that require field verification.",
+          "seconds": 6.6,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "crop_area_summary"
+          ],
+          "tool_calls": [
+            {
+              "tool": "crop_area_summary",
+              "args": {
+                "source": "predicted"
+              }
+            }
+          ],
+          "failures": [],
+          "warnings": [
+            "missed ['query_parcels', 'status_summary']"
+          ],
+          "set": "core",
+          "tools_expected": [
+            "crop_area_summary",
+            "query_parcels",
+            "status_summary"
+          ],
+          "tool_selection": "some",
+          "grounded_numbers": [
+            "158",
+            "12.95",
+            "0.89",
+            "14",
+            "1.32",
+            "0.57",
+            "10",
+            "1.64",
+            "0.70",
+            "0.16"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "Here is the crop-wise cultivated area, parcel count, and mean model confidence across the study area, aggregated by village from satellite predictions.\n\nVillage breakdown of predicted crops, areas, and confidence:\n\n- Ariyur:\n  - Rice (Paddy): 158 parcels, 12.95 ha, mean confidence 0.89\n  - Maize: 14 parcels, 1.32 ha, mean confidence 0.57\n  - Coconut: 10 parcels, 1.64 ha, mean confidence 0.70\n  - Banana: 2 parcels, 0.16 ha, mean confidence 0.50\n\n- Cuddalor:\n  - Rice (Paddy): 460 parcels, 56.33 ha, mean confidence 0.73\n  - Coconut: 217 parcels, 21.07 ha, mean confidence 0.74\n  - Maize: 69 parcels, 7.32 ha, mean confidence 0.59\n  - Banana: 24 parcels, 3.13 ha, mean confidence 0.58\n  - Sugarcane: 9 parcels, 0.65 ha, mean confidence 0.42\n  - Other: 1 parcel, 0.21 ha, mean confidence 0.20\n\n- Dharugapuram:\n  - Rice (Paddy): 414 parcels, 53.23 ha, mean confidence 0.87\n  - Coconut: 89 parcels, 15.59 ha, mean confidence 0.83\n  - Banana: 11 parcels, 2.10 ha, mean confidence 0.35\n  - Maize: 7 parcels, 1.64 ha, mean confidence 0.53\n\n- Inamkovilpatti:\n  - Rice (Paddy): 111 parcels, 10.14 ha, mean confidence 0.76\n  - Coconut: 62 parcels, 5.00 ha, mean confidence 0.72\n  - Maize: 19 parcels, 1.70 ha, mean confidence 0.60\n  - Banana: 8 parcels, 0.54 ha, mean confidence 0.50\n  - Other: 2 parcels, 0.05 ha, mean confidence 0.46\n  - Sugarcane: 1 parcel, 0.08 ha, mean confidence 0.37\n\n- Naranapuram - Part-1:\n  - Rice (Paddy): 770 parcels, 88.74 ha, mean confidence 0.89\n  - Coconut: 44 parcels, 6.20 ha, mean confidence 0.69\n  - Maize: 8 parcels, 1.38 ha, mean confidence 0.55\n  - Banana: 6 parcels, 0.71 ha, mean confidence 0.35\n  - Other: 3 parcels, 0.25 ha, mean confidence 0.25\n\n- Naranapuram - Part-2:\n  - Rice (Paddy): 63 parcels, 11.21 ha, mean confidence 0.92\n  - Coconut: 15 parcels, 3.26 ha, mean confidence 0.74\n  - Maize: 3 parcels, 0.28 ha, mean confidence 0.74\n\n- Nelkattumseval:",
+          "passed": true
+        },
+        {
+          "question": "Show crop-wise area for the selected village and highlight parcels below 80% confidence.",
+          "seconds": 4.8,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "crop_area_summary",
+            "query_parcels"
+          ],
+          "tool_calls": [
+            {
+              "tool": "crop_area_summary",
+              "args": {
+                "village": "Rayagiri - Part-2"
+              }
+            },
+            {
+              "tool": "query_parcels",
+              "args": {
+                "village": "Rayagiri - Part-2",
+                "max_confidence": 0.8
+              }
+            }
+          ],
+          "failures": [],
+          "warnings": [
+            "numbers not found in any tool result: ['20']"
+          ],
+          "set": "core",
+          "tools_expected": [
+            "crop_area_summary",
+            "query_parcels"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "950",
+            "225.68",
+            "0.917",
+            "0.72",
+            "19",
+            "9.64",
+            "0.642",
+            "2.54",
+            "1.97",
+            "0.656"
+          ],
+          "ungrounded_numbers": [
+            "20"
+          ],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "Crop area summary for **Rayagiri - Part-2**:\n\n- **Rice (Paddy):** 950 parcels, 225.68 ha (mean confidence 0.917, conflicted area 0.72 ha)\n- **Sugarcane:** 19 parcels, 9.64 ha (mean confidence 0.642, conflicted area 2.54 ha)\n- **Coconut:** 6 parcels, 1.97 ha (mean confidence 0.656, conflicted area 0.0 ha)\n\nThere are 86 parcels in this village with calibrated confidence below 80% (classified as **UNCERTAIN**). The listing above shows the first 20 of these parcels (for example, parcel `152_112_1A` with 0.35 ha of Rice predicted as Coconut at 70.6% confidence).",
+          "passed": true
+        },
+        {
+          "question": "Compare the performance obtained from Google Satellite Embeddings and Presto embeddings where both are supplied.",
+          "seconds": 3.5,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "leakage_ladder"
+          ],
+          "tool_calls": [
+            {
+              "tool": "leakage_ladder",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "core",
+          "tools_expected": [
+            "leakage_ladder"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "0.8149",
+            "0.5633",
+            "0.7419",
+            "0.4519",
+            "192",
+            "0.8131",
+            "0.5593"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": true,
+          "answer": "Under the 3-event validation regime (grouped by survey capture event), Google Satellite Embeddings (GSE) alone achieve an accuracy of 0.8149 and a macro F1 of 0.5633. Presto embeddings alone achieve an accuracy of 0.7419 and a macro F1 of 0.4519. Combining both (192 dimensions) yields an accuracy of 0.8131 and a macro F1 of 0.5593.\n\nComparing GSE + Presto against GSE alone, the source comparison is marked underpowered, meaning there is NO measurable difference in performance when adding Presto to GSE.\n\nNote that Presto was pretrained on Sentinel-2 L1C top-of-atmosphere data while our pipeline feeds L2A surface reflectance, creating a small domain shift.",
+          "passed": true
+        },
+        {
+          "question": "Show villages where predicted crop area differs significantly from the supplied registry.",
+          "seconds": 4.0,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "compare_to_registry"
+          ],
+          "tool_calls": [
+            {
+              "tool": "compare_to_registry",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "core",
+          "tools_expected": [
+            "compare_to_registry"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "2024",
+            "34.6",
+            "-256.0",
+            "32.6",
+            "+138.9",
+            "28.4",
+            "+210.2",
+            "23.1",
+            "+21.8",
+            "22.6"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "The villages and crops with the largest divergence between the satellite-predicted crop share and the Tamil Nadu Agrisnet village-wise Digital Crop Survey report (Rabi 2024) are:\n\n- Rayagiri - Part-1 (Sugarcane): Satellite share is 34.6 percentage points lower than registry (implied difference of -256.0 hectares).\n- Thenmalai - Part-2 (Rice / Paddy): Satellite share is 32.6 percentage points higher than registry (+138.9 hectares).\n- Rayagiri - Part-1 (Rice / Paddy): Satellite share is 28.4 percentage points higher than registry (+210.2 hectares).\n- Inamkovilpatti (Coconut): Satellite share is 23.1 percentage points higher than registry (+21.8 hectares).\n- Thenmalai - Part-2 (Sugarcane): Satellite share is 22.6 percentage points lower than registry (-96.4 hectares).\n- Inamkovilpatti (Rice / Paddy): Satellite share is 22.2 percentage points lower than registry (-20.8 hectares).\n\nNote: The crop registry is the published aggregate of the same Digital Crop Survey we are auditing, so this comparison does not constitute independent validation against a second external source.",
+          "passed": true
+        },
+        {
+          "question": "List the crop classes with the highest confusion and show representative errors.",
+          "seconds": 3.7,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "confusion_report"
+          ],
+          "tool_calls": [
+            {
+              "tool": "confusion_report",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [
+            "missed ['query_parcels']"
+          ],
+          "set": "core",
+          "tools_expected": [
+            "confusion_report",
+            "query_parcels"
+          ],
+          "tool_selection": "some",
+          "grounded_numbers": [
+            "653",
+            "64",
+            "0.890",
+            "2,102",
+            "8,970",
+            "0.769",
+            "463",
+            "2,566",
+            "0.719",
+            "117"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": true,
+          "answer": "Here is the crop performance and confusion breakdown under the 3-event validation split regime. Note that per-class metrics rely on independent capture events rather than raw record counts (for example, Banana has 653 records but only 64 independent capture events).\n\nPer-class F1 scores:\n- Rice (Paddy): 0.890 (2,102 capture events, 8,970 records)\n- Coconut: 0.769 (463 capture events, 2,566 records)\n- Sugarcane: 0.719 (117 capture events, 429 records)\n- Maize: 0.694 (159 capture events, 1,560 records)\n- Banana: 0.322 (64 capture events, 653 records)\n- Other: 0.000 (16 capture events, 132 records)\n\nTop confusion pairs (surveyor declared true crop vs satellite predicted crop):\n1. True Coconut, predicted Rice (Paddy): 457 records\n2. True Maize, predicted Rice (Paddy): 388 records\n3. True Rice (Paddy), predicted Maize: 320 records\n4. True Rice (Paddy), predicted Coconut: 280 records\n5. True Banana, predicted Rice (Paddy): 270 records\n6. True Banana, predicted Coconut: 139 records",
+          "passed": true
+        },
+        {
+          "question": "Export the classified parcel layer, confidence values and crop-area summary.",
+          "seconds": 2.9,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "export_layer"
+          ],
+          "tool_calls": [
+            {
+              "tool": "export_layer",
+              "args": {
+                "fmt": "csv"
+              }
+            }
+          ],
+          "failures": [],
+          "warnings": [
+            "missed ['crop_area_summary']"
+          ],
+          "set": "core",
+          "tools_expected": [
+            "crop_area_summary",
+            "export_layer"
+          ],
+          "tool_selection": "some",
+          "grounded_numbers": [
+            "14,310"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "Here is the exported classified parcel layer.\n\nDownload CSV: `/export?fmt=csv` (14,310 parcels).\n\nIt includes parcel IDs, village names, survey and subdivision numbers, declared and predicted crops, calibrated confidence, trust scores, agreement status, probability of label correction, suggested crops, area in square metres, and latitude/longitude coordinates.",
+          "passed": true
+        },
+        {
+          "question": "Where should we send 500 surveyors next season?",
+          "seconds": 4.1,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "route_verification_budget"
+          ],
+          "tool_calls": [
+            {
+              "tool": "route_verification_budget",
+              "args": {
+                "budget": 500
+              }
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "core",
+          "tools_expected": [
+            "route_verification_budget"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "500",
+            "500",
+            "3.49",
+            "142.83",
+            "498",
+            "2,617",
+            "91.44",
+            "5.45",
+            "18.29",
+            "390.55"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "Based on a budget of 500 field visits next season, KAVAL prioritizes parcels by multiplying the estimated probability that the survey label needs correction by the parcel area. \n\nFor this budget:\n- **Parcels visited:** 500 (3.49% of all parcels, covering 142.83 hectares).\n- **Disagreements found:** 498 routed disagreements out of 2,617 total available across the taluk (compared to 91.44 expected from random sampling).\n- **Targeting efficiency:** 5.45 times random sampling (capped by construction at 1 / base disagreement rate of 18.29%).\n- **Estimated corrections:** 390.55 estimated label corrections, compared to 53.93 (+/- 6.03) under random sampling.\n\nThe top-priority parcels to inspect first include:\n1. **Parcel 152_399_1** (Rayagiri - Part-2): Surveyed as Rice (Paddy), predicted as Sugarcane (Priority: 3.27, Area: 17,200 m2).\n2. **Parcel 7_176_3** (Ramanathapuram): Surveyed as Other, predicted as Rice (Paddy) (Priority: 3.27, Area: 10,800 m2).\n3. **Parcel 7_127_1** (Ramanathapuram): Surveyed as Other, predicted as Rice (Paddy) (Priority: 3.27, Area: 7,000 m2).\n4. **Parcel 6_363_4A** (Thirumalapuram): Surveyed as Banana, predicted as Rice (Paddy) (Priority: 3.27, Area: 5,300 m2).\n5. **Parcel 15_137_2** (Patakurichi): Surveyed as Banana, predicted as Maize (Priority: 3.27, Area: 4,789 m2).\n\nYou can export the full routed worklist for all 500 visits as a CSV or GeoJSON file at any time using `export_layer`.",
+          "passed": true
+        },
+        {
+          "question": "Which parcels can we stop visiting?",
+          "seconds": 2.9,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "auto_clear_summary"
+          ],
+          "tool_calls": [
+            {
+              "tool": "auto_clear_summary",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "core",
+          "tools_expected": [
+            "auto_clear_summary"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "4,825",
+            "33.7",
+            "870.8",
+            "193.0",
+            "572.4",
+            "25",
+            "7.6",
+            "365"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": false,
+          "answer": "We can stop visiting **4,825 parcels** (33.7% of the taluk, covering 870.8 hectares). \n\nThese are classified as **CONFIRMED**: parcels where the satellite agrees with the survey at high calibrated confidence on a trusted record. \n\nStopping visits to these parcels saves an estimated **193.0 surveyor-days** out of a baseline of 572.4 days (assuming 25 parcels per surveyor-day). \n\nThe expected residual error rate is roughly 7.6% (about 365 parcels cleared in error). This residual error rate is a rough proxy rather than a guarantee, because auto-clearing fails only where the satellite and surveyor err in the same way, which cannot be measured against a label the surveyor supplied. This can be settled with an independent field audit of a CONFIRMED sample.",
+          "passed": true
+        },
+        {
+          "question": "How trustworthy is the ground truth itself?",
+          "seconds": 3.6,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "ground_truth_forensics"
+          ],
+          "tool_calls": [
+            {
+              "tool": "ground_truth_forensics",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "core",
+          "tools_expected": [
+            "ground_truth_forensics"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "14,643",
+            "21",
+            "3,204",
+            "4.57",
+            "655",
+            "66",
+            "9.9",
+            "93.8",
+            "1,436",
+            "75"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": true,
+          "answer": "The ground truth survey records show significant structural weaknesses that motivate this audit:\n\n- **Capture-Event Inflation**: The 14,643 records across 21 villages collapse down to just 3,204 independent capture events, yielding an inflation factor of 4.57. For instance, Banana has 655 records but only 66 independent capture events (an inflation factor of 9.9). 93.8% of records sit inside multi-parcel capture events.\n- **Photo Distance**: The median distance from survey photo to parcel is 1,436 m, with 75% of values at or below 2,436 m, and 62.3% of records having a photo-to-parcel distance over 1 km (reaching up to 8,559 m). \n- **Mixed Declarations**: There are 385 mixed-crop declarations.\n- **Evidence vs Field**: Records categorized as UNVERIFIABLE suffer from weak evidence (such as oversized capture-event bags or distant photographs) rather than an incorrect field reality.",
+          "passed": true
+        },
+        {
+          "question": "Tell me about parcel 152_399_1.",
+          "seconds": 2.9,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "get_parcel"
+          ],
+          "tool_calls": [
+            {
+              "tool": "get_parcel",
+              "args": {
+                "parcel_id": "152_399_1"
+              }
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "extended",
+          "tools_expected": [
+            "get_parcel"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "152",
+            "17,200",
+            "0.97",
+            "0.85",
+            "0.82",
+            "27041",
+            "11421997936191,",
+            "742.9"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": true,
+          "answer": "Parcel 152_399_1 is located in Rayagiri - Part-2 village and covers an area of 17,200 square meters. \n\nHere are the audit details for this record:\n- Declared crop: Rice (Paddy)\n- Predicted crop: Sugarcane\n- Agreement status: DISPUTED (the satellite and the survey disagree at high calibrated confidence)\n- Calibrated confidence: 0.97\n- Trust score: 0.85\n- P(label needs correction): 0.82\n- Evidence details: The record is supported by capture event b733afd630124385-27041-11421997936191, with a photograph distance of 742.9 meters from the parcel.",
+          "passed": true
+        },
+        {
+          "question": "How well calibrated is the model's confidence?",
+          "seconds": 3.0,
+          "planner": "llm",
+          "provider": "gemini:gemini-flash-lite-latest",
+          "tools_chosen": [
+            "calibration_report"
+          ],
+          "tool_calls": [
+            {
+              "tool": "calibration_report",
+              "args": {}
+            }
+          ],
+          "failures": [],
+          "warnings": [],
+          "set": "extended",
+          "tools_expected": [
+            "calibration_report"
+          ],
+          "tool_selection": "all",
+          "grounded_numbers": [
+            "94.2",
+            "81.7",
+            "0.125",
+            "81.7",
+            "81.7",
+            "0.005"
+          ],
+          "ungrounded_numbers": [],
+          "language_violations": [],
+          "names_split_regime_in_text": true,
+          "answer": "The model's raw confidence is overconfident, with a mean raw confidence of 94.2% against an actual accuracy of 81.7% under the 3-event validation regime, resulting in an expected calibration error (ECE) of 0.125. \n\nAfter applying isotonic calibration, the calibrated confidence aligns closely with actual accuracy at 81.7% (mean calibrated confidence 81.7%), reducing the ECE to 0.005.",
+          "passed": true
+        }
+      ],
+      "total": 9,
+      "core_total": 9,
+      "passing": 9,
+      "not_run_quota": 0,
+      "extended_passing": 2,
+      "extended_total": 2,
+      "tool_selection_all": 6,
+      "with_ungrounded_numbers": 1,
+      "with_language_violations": 0,
+      "naming_regime_in_text": 3,
+      "median_seconds": 3.7
+    }
+  }
+}

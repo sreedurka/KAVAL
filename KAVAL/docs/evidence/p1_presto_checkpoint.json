@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-30",
+  "commit": "11e207a668a34336ced1d8e492a1bd5849b96c4a",
+  "checkpoint_loads": true,
+  "params_total": 822682,
+  "params_encoder": 404160,
+  "embedding_shape": [
+    3,
+    128
+  ],
+  "smoke_forward_finite": true,
+  "note": "Presto NOT yet run over parcels; awaits Sentinel time series."
+}

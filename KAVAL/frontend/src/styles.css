@@ -1,0 +1,393 @@
+/*
+ * KAVAL — tokens and layout.
+ *
+ * Every colour is a token here; no component writes a hex. Dark mode is a
+ * *selected* set of steps validated against the dark surface, not an automatic
+ * inversion (dataviz skill, accessibility pass). The dark values are declared
+ * twice on purpose: once under the OS media query, once under the explicit
+ * [data-theme] scope, so the in-app toggle wins in both directions.
+ */
+
+@import 'leaflet/dist/leaflet.css';
+
+:root {
+  color-scheme: light;
+
+  /* surfaces & ink */
+  --surface-1: #fcfcfb;
+  --surface-2: #f4f4f1;
+  --page: #f9f9f7;
+  --ink-1: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --border-strong: rgba(11, 11, 11, 0.18);
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.06), 0 8px 24px rgba(11, 11, 11, 0.06);
+
+  /* ---- agreement status (validated: see src/lib/palette.ts) ---- */
+  --st-disputed: #d03b3b;
+  --st-uncertain: #eda100;
+  --st-unverifiable: #1baf7a;
+  --st-confirmed: #2a78d6;
+  --st-unseen: #898781;
+
+  /* categorical slots for the secondary crop layer and charts */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+
+  /* sequential blue ramp (magnitude: confusion heatmap) */
+  --seq-100: #cde2fb;
+  --seq-250: #86b6ef;
+  --seq-400: #3987e5;
+  --seq-550: #1c5cab;
+  --seq-700: #0d366b;
+
+  /* diverging: blue (satellite above declared) ↔ red (below) */
+  --div-pos: #2a78d6;
+  --div-neg: #d03b3b;
+  --div-mid: #f0efec;
+
+  /* the counterfactual is a reference, never a rival series */
+  --reference: #898781;
+
+  --radius: 10px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #232321;
+    --page: #0d0d0d;
+    --ink-1: #ffffff;
+    --ink-2: #c3c2b7;
+    --ink-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.2);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+
+    --st-disputed: #d03b3b;
+    --st-uncertain: #c98500;
+    --st-unverifiable: #199e70;
+    --st-confirmed: #3987e5;
+    --st-unseen: #898781;
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-8: #e66767;
+
+    --seq-100: #184f95;
+    --seq-250: #256abf;
+    --seq-400: #3987e5;
+    --seq-550: #6da7ec;
+    --seq-700: #b7d3f6;
+
+    --div-pos: #3987e5;
+    --div-neg: #d03b3b;
+    --div-mid: #383835;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --surface-2: #232321;
+  --page: #0d0d0d;
+  --ink-1: #ffffff;
+  --ink-2: #c3c2b7;
+  --ink-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  --st-disputed: #d03b3b;
+  --st-uncertain: #c98500;
+  --st-unverifiable: #199e70;
+  --st-confirmed: #3987e5;
+  --st-unseen: #898781;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+
+  --seq-100: #184f95;
+  --seq-250: #256abf;
+  --seq-400: #3987e5;
+  --seq-550: #6da7ec;
+  --seq-700: #b7d3f6;
+
+  --div-pos: #3987e5;
+  --div-neg: #d03b3b;
+  --div-mid: #383835;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--page);
+  color: var(--ink-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--series-1); }
+
+/* ------------------------------------------------------------- shell ---- */
+.app { display: flex; flex-direction: column; height: 100%; }
+
+.mockbar {
+  background: repeating-linear-gradient(
+    135deg, var(--st-uncertain), var(--st-uncertain) 10px,
+    color-mix(in srgb, var(--st-uncertain) 70%, black) 10px,
+    color-mix(in srgb, var(--st-uncertain) 70%, black) 20px);
+  color: #0b0b0b;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding: 5px 16px;
+  text-align: center;
+}
+.mockbar span { background: var(--surface-1); color: var(--ink-1); padding: 2px 10px; border-radius: 99px; }
+
+header.top {
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 16px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+.brand small { display: block; font-weight: 400; font-size: 11px; color: var(--ink-muted); letter-spacing: 0; }
+
+nav.tabs { display: flex; gap: 2px; flex: 1; }
+nav.tabs button {
+  border: 0; background: transparent; color: var(--ink-2);
+  font: inherit; padding: 7px 13px; border-radius: 8px; cursor: pointer;
+}
+nav.tabs button:hover { background: var(--surface-2); color: var(--ink-1); }
+nav.tabs button[aria-current='page'] { background: var(--ink-1); color: var(--surface-1); }
+
+.main { display: flex; flex: 1; min-height: 0; }
+.content { flex: 1; min-width: 0; overflow: auto; padding: 16px; }
+.rail {
+  width: 302px; flex: none; overflow: auto;
+  background: var(--surface-1);
+  border-left: 1px solid var(--border);
+  padding: 14px;
+}
+
+/* -------------------------------------------------------------- bits ---- */
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.card > h2 { margin: 0 0 2px; font-size: 14px; letter-spacing: -0.01em; }
+.card > .sub { margin: 0 0 12px; font-size: 12px; color: var(--ink-2); }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.spacer { flex: 1; }
+
+.tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
+.tile .value { font-size: 28px; font-weight: 650; letter-spacing: -0.02em; margin-top: 2px; }
+.tile .value.sm { font-size: 20px; }
+.tile .note { font-size: 11px; color: var(--ink-2); margin-top: 3px; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; padding: 2px 8px; border-radius: 99px;
+  border: 1px solid var(--border-strong); color: var(--ink-2);
+  background: var(--surface-2); white-space: nowrap;
+}
+.chip.regime { font-family: var(--mono); }
+.chip.warn { border-color: var(--st-uncertain); color: var(--ink-1); }
+.chip.dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+.swatch { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--border-strong); flex: none; }
+.swatch.hatch { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.45) 0 2px, transparent 2px 5px); }
+.swatch.outline { background: transparent !important; }
+
+table.data { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.data th, table.data td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+table.data th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; position: sticky; top: 0; background: var(--surface-1); }
+table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.data tbody tr:hover { background: var(--surface-2); }
+table.data tbody tr[aria-selected='true'] { background: color-mix(in srgb, var(--series-1) 14%, transparent); }
+.scroll { max-height: 420px; overflow: auto; }
+
+.slider { display: block; margin-bottom: 14px; }
+.slider .head { display: flex; justify-content: space-between; align-items: baseline; }
+.slider .name { font-size: 12px; font-weight: 600; }
+.slider .val { font-family: var(--mono); font-size: 12px; }
+.slider .why { font-size: 11px; color: var(--ink-2); margin: 2px 0 5px; }
+.slider input[type='range'] { width: 100%; accent-color: var(--series-1); }
+
+button.btn {
+  font: inherit; font-size: 12.5px; padding: 5px 11px; border-radius: 8px;
+  border: 1px solid var(--border-strong); background: var(--surface-1); color: var(--ink-1); cursor: pointer;
+}
+button.btn:hover { background: var(--surface-2); }
+button.btn.primary { background: var(--ink-1); color: var(--surface-1); border-color: var(--ink-1); }
+button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+select, input[type='text'], textarea {
+  font: inherit; font-size: 12.5px; padding: 5px 8px; border-radius: 8px;
+  border: 1px solid var(--border-strong); background: var(--surface-1); color: var(--ink-1);
+}
+
+.state { padding: 22px 18px; border-radius: var(--radius); border: 1px dashed var(--border-strong); color: var(--ink-2); font-size: 13px; }
+.state.error { border-color: var(--st-disputed); border-style: solid; }
+.state.error h3 { margin: 0 0 6px; font-size: 13px; color: var(--st-disputed); display: flex; align-items: center; gap: 6px; }
+.state code { font-family: var(--mono); font-size: 11.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+
+.prov { font-size: 11px; color: var(--ink-muted); margin-top: 8px; font-family: var(--mono); word-break: break-all; }
+
+/* -------------------------------------------------------------- map ----- */
+.mapwrap { position: relative; height: calc(100vh - 210px); min-height: 460px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.leaflet-container { height: 100%; width: 100%; background: var(--surface-2); font: inherit; }
+:root[data-theme='dark'] .leaflet-tile-pane,
+:root:where(:not([data-theme='light'])) .leaflet-tile-pane { filter: none; }
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+}
+:root[data-theme='dark'] .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+:root[data-theme='light'] .leaflet-tile-pane { filter: none; }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--surface-1); color: var(--ink-1); box-shadow: var(--shadow); }
+.leaflet-popup-content { margin: 10px 12px; font-size: 12.5px; min-width: 250px; }
+
+.legend { display: flex; flex-direction: column; gap: 7px; }
+.legend .item { display: grid; grid-template-columns: 14px 1fr auto; gap: 8px; align-items: center; cursor: pointer; padding: 3px 4px; border-radius: 6px; }
+.legend .item:hover { background: var(--surface-2); }
+.legend .item[aria-pressed='false'] { opacity: 0.4; }
+.legend .name { font-size: 12px; font-weight: 600; }
+.legend .count { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.legend .meaning { grid-column: 2 / -1; font-size: 11px; color: var(--ink-muted); margin-top: -2px; }
+
+/* ------------------------------------------------------------ charts ---- */
+.chart { width: 100%; display: block; overflow: visible; }
+.chart text { font-family: var(--sans); fill: var(--ink-2); }
+.chart .tick { font-size: 10.5px; fill: var(--ink-muted); }
+.chart .lbl { font-size: 11.5px; fill: var(--ink-1); font-variant-numeric: tabular-nums; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .baseline { stroke: var(--axis); stroke-width: 1; }
+.chart rect.mark { stroke: var(--surface-1); stroke-width: 2; }
+.chart rect.mark:hover { stroke: var(--ink-1); }
+
+.tooltip {
+  position: fixed; z-index: 1000; pointer-events: none;
+  background: var(--surface-1); color: var(--ink-1);
+  border: 1px solid var(--border-strong); border-radius: 8px;
+  box-shadow: var(--shadow); padding: 7px 10px; font-size: 12px; max-width: 280px;
+}
+.tooltip .t { font-weight: 650; margin-bottom: 2px; }
+.tooltip .r { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------ analyst --- */
+.chat { display: flex; flex-direction: column; gap: 12px; }
+.msg { border-radius: var(--radius); padding: 10px 13px; border: 1px solid var(--border); }
+.msg.user { background: var(--surface-2); align-self: flex-end; max-width: 72%; }
+.msg.bot { background: var(--surface-1); }
+.msg .who { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 4px; }
+.msg pre { white-space: pre-wrap; margin: 0; font: inherit; }
+.cites { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--grid); display: flex; flex-wrap: wrap; gap: 6px; }
+.toolcall { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/*
+ * UNVERIFIABLE parcels are filled with the 45° hatch injected into Leaflet's own
+ * overlay <svg> (see views/AuditMapView.tsx → HatchDefs). A CSS rule beats the
+ * presentation attribute Leaflet writes, so this survives every setStyle.
+ * The texture is the secondary encoding the dataviz skill requires for the one
+ * status pair sitting in the 6–8 CVD band, and it says visually what the status
+ * means: the problem is the record, not the field.
+ */
+.leaflet-overlay-pane path.kaval-unverifiable {
+  fill: url(#kaval-hatch);
+  fill-opacity: 0.95;
+}
+
+/* Registry-comparison caveats: always visible, never collapsible. */
+.caveats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.caveat {
+  border: 1px solid var(--st-uncertain, #eda100);
+  border-left-width: 5px;
+  background: color-mix(in srgb, var(--st-uncertain, #eda100) 10%, var(--surface-1));
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------ narrow ---- */
+/* Phone and small-tablet layout. The desktop shell is a two-column app with a
+   fixed rail; below 900px it becomes one scrolling column with the threshold
+   rail after the content, and nothing may push the page wider than the screen. */
+@media (max-width: 900px) {
+  html, body, #root { height: auto; }
+  .app { height: auto; min-height: 100%; }
+  header.top { flex-wrap: wrap; gap: 8px 12px; padding: 10px 12px; }
+  .brand { flex: 1 1 auto; }
+  nav.tabs {
+    order: 3; flex: 1 1 100%; overflow-x: auto; flex-wrap: nowrap;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button { white-space: nowrap; flex: none; }
+  .main { flex-direction: column; min-height: auto; }
+  .content { overflow: visible; padding: 12px; }
+  .rail { width: auto; border-left: 0; border-top: 1px solid var(--border); overflow: visible; }
+  .grid2, .grid3, .caveats { grid-template-columns: 1fr; }
+  .card { padding: 12px; overflow-x: auto; }
+  table.data { display: block; overflow-x: auto; max-width: 100%; }
+  .row { flex-wrap: wrap; }
+  select, input[type='text'] { max-width: 100%; }
+}
+
+/* ------------------------------------------------ analyst answer (md) ---- */
+.md { font-size: 13.5px; line-height: 1.55; color: var(--ink-1); }
+.md p { margin: 0 0 8px; }
+.md ul, .md ol { margin: 0 0 8px; padding-left: 20px; }
+.md li { margin: 2px 0; }
+.md .md-h { font-weight: 700; font-size: 13.5px; margin: 10px 0 4px; }
+.md code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 0 4px; border-radius: 4px; }
+.md .md-table { margin: 4px 0 10px; }

@@ -1,0 +1,20 @@
+# KAVAL - packages needed to RUN the product (API + analyst + the data it serves).
+# Pinned to the versions verified on 2026-10-01 (41 API tests, 23 UI tests passing).
+# Installed by setup.cmd. Python 3.12.
+fastapi==0.142.0
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+httpx==0.28.1
+numpy==2.5.3
+pandas==3.0.6
+pyarrow==23.0.1
+scikit-learn==1.9.1
+scipy==1.18.1
+geopandas==1.2.0
+pyogrio==0.13.0
+shapely==2.1.2
+pyproj==3.8.0
+# Optional: only used when ANTHROPIC_API_KEY is set (Claude as the analyst's planner).
+anthropic==1.9.0
+# Test suite (KAVAL/tests).
+pytest==9.1.1

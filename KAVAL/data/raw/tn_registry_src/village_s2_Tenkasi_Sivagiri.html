@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>District-wise Crop Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Mobile responsive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    .tableFixHead {
+        overflow-y: auto;
+        max-height: 500px;
+    }
+
+    .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+        background-color: #0d6efd;
+        color: white;
+        z-index: 1;
+    }
+
+    .export-btn {
+        float: right;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DCS Report</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Agriculture Dropdown -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/comparisonOverall">📊 Overall Comparison</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="agriDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">🌾 Agriculture</a>
+                        <ul class="dropdown-menu" aria-labelledby="agriDropdown">
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/3/Agriculture">Kharif 2025</a></li>
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/1/Agriculture">Summer 2025</a></li>
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/2/Agriculture">Rabi 2024</a></li>
+                        </ul>
+                    </li>
+                    <!-- Horticulture Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="hortiDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">🌱 Horticulture</a>
+                        <ul class="dropdown-menu" aria-labelledby="hortiDropdown">
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/3/Horticultural">Kharif 2025</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/1/Horticultural">Summer 2025</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportDistrictWise/2/Horticultural">Rabi 2024</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><div class="container my-4">
+    <h2 class="mb-4 text-center">Rabi 2024 District Wise Report</h2>
+    <h3 class="text-center mb-4">Village-wise Crop Report - Sivagiri</h3>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="m-0">Village-wise Crop Report - Sivagiri</h5>
+        <button class="btn btn-success btn-sm export-btn"
+            onclick="exportTableToExcel('cropReportTable', 'Village-wise_Crop_Report_-_Sivagiri')">Export to
+            Excel</button>
+    </div>
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-4">
+            <select name="village" class="form-select">
+                <option value="">-- All Villages --</option>
+                                <option value="Ariyur"
+                    >
+                    Ariyur                </option>
+                                <option value="Cuddalor"
+                    >
+                    Cuddalor                </option>
+                                <option value="Dharugapuram"
+                    >
+                    Dharugapuram                </option>
+                                <option value="Inamkovilpatti"
+                    >
+                    Inamkovilpatti                </option>
+                                <option value="Naranapuram - Part-1"
+                    >
+                    Naranapuram - Part-1                </option>
+                                <option value="Naranapuram - Part-2"
+                    >
+                    Naranapuram - Part-2                </option>
+                                <option value="Nelkattumseval"
+                    >
+                    Nelkattumseval                </option>
+                                <option value="Patakurichi"
+                    >
+                    Patakurichi                </option>
+                                <option value="Ramanathapuram"
+                    >
+                    Ramanathapuram                </option>
+                                <option value="Rayagiri - Part-1"
+                    >
+                    Rayagiri - Part-1                </option>
+                                <option value="Rayagiri - Part-2"
+                    >
+                    Rayagiri - Part-2                </option>
+                                <option value="Sanganaperi"
+                    >
+                    Sanganaperi                </option>
+                                <option value="Sivagiri - Part-1"
+                    >
+                    Sivagiri - Part-1                </option>
+                                <option value="Sivagiri - Part-2"
+                    >
+                    Sivagiri - Part-2                </option>
+                                <option value="Subramaniyapuram"
+                    >
+                    Subramaniyapuram                </option>
+                                <option value="Thenmalai - Part-1"
+                    >
+                    Thenmalai - Part-1                </option>
+                                <option value="Thenmalai - Part-2"
+                    >
+                    Thenmalai - Part-2                </option>
+                                <option value="Thirumalapuram"
+                    >
+                    Thirumalapuram                </option>
+                                <option value="Vasudevanallur"
+                    >
+                    Vasudevanallur                </option>
+                                <option value="Viswanathaperi - Part-1"
+                    >
+                    Viswanathaperi - Part-1                </option>
+                                <option value="Viswanathaperi - Part-2"
+                    >
+                    Viswanathaperi - Part-2                </option>
+                            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary">Apply Filter</button>
+            <a href="https://www.tnagrisnet.tn.gov.in/ARS/dcs/reportVillageWise/2/Tenkasi/Sivagiri"
+                class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+    <div class="table-responsive tableFixHead">
+        <table class="table table-bordered table-striped align-middle" id="cropReportTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Village</th>
+                    <th>Crop Type</th>
+                    <th>Crop Name</th>
+                    <th>Area (ha)</th>
+                </tr>
+            </thead>
+            <tbody>
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>24.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Mungbean(Green Gram)</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Sorghum</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Diploid Cotton (Paruththi)</td>
+                    <td>2.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>4.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>88.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>3.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Floriculture</td>
+                    <td>Jasmine</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>42.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Horticultural</td>
+                    <td>Tamarind</td>
+                    <td>0.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Ariyur</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>4.2</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Ariyur:</td>
+                    <td>172.3</td>
+                </tr>
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>51.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>256.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Cowpea</td>
+                    <td>3.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Chickpea (Bengal Gram)</td>
+                    <td>2.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>7.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Agriculture</td>
+                    <td>Quinoa</td>
+                    <td>8.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>30.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Horticultural</td>
+                    <td>Lemon Grass</td>
+                    <td>1.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>22.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>28.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Cuddalor</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>40.3</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Cuddalor:</td>
+                    <td>452.3</td>
+                </tr>
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>230.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>73.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>24.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>7.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>0.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>123.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Horticultural</td>
+                    <td>Guava</td>
+                    <td>2.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>25.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Dharugapuram</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Dharugapuram:</td>
+                    <td>489.3</td>
+                </tr>
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Agriculture</td>
+                    <td>Finger Millet (Ragi)</td>
+                    <td>0.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>10.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>76.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>10.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>2.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>5.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Chilli</td>
+                    <td>4.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>0.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Inamkovilpatti</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Inamkovilpatti:</td>
+                    <td>110.4</td>
+                </tr>
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Napier Grass</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Maize - African Tall Maize</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Acid Lime</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Sesbania</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Diploid Cotton (Paruththi)</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Fodder cumbu</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>16.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Lemon</td>
+                    <td>0.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Puddle</td>
+                    <td>3.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Buffalo grass</td>
+                    <td>1.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Dhaincha</td>
+                    <td>4.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Cowpea</td>
+                    <td>0.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Sorghum</td>
+                    <td>2.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>352.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Finger Millet (Ragi)</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Floriculture</td>
+                    <td>Jasmine</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>40.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Jasmine</td>
+                    <td>0.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>37.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Cucumber</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>5.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-1</td>
+                    <td>Others</td>
+                    <td>Rice (Paddy)</td>
+                    <td>1.2</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Naranapuram - Part-1:</td>
+                    <td>474.9</td>
+                </tr>
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Acid Lime</td>
+                    <td>4.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Brinjal</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>0.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Mungbean(Green Gram)</td>
+                    <td>2.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>48.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Tetraploid Cotton</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Tapioca</td>
+                    <td>2.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Spiny Amaranth</td>
+                    <td>1.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>31.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Broccoli</td>
+                    <td>2.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Moringa</td>
+                    <td>1.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>1.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>2.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>51.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>5.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>25.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Naranapuram - Part-2</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Neem</td>
+                    <td>1.0</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Naranapuram - Part-2:</td>
+                    <td>187.6</td>
+                </tr>
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>134.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Fodder cumbu</td>
+                    <td>14.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>342.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Mungbean(Green Gram)</td>
+                    <td>2.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>9.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>2.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Sunflower</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>40.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>1.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>48.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Sapota</td>
+                    <td>12.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Black Pepper</td>
+                    <td>3.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>40.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Nelkattumseval</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>25.5</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Nelkattumseval:</td>
+                    <td>678.6</td>
+                </tr>
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Sorghum</td>
+                    <td>2.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>37.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>6.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>56.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Agriculture</td>
+                    <td>Mungbean(Green Gram)</td>
+                    <td>9.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Papaya</td>
+                    <td>1.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>10.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>43.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>1.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>30.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>237.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Moringa</td>
+                    <td>2.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Patakurichi</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>1.5</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Patakurichi:</td>
+                    <td>441.1</td>
+                </tr>
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Tapioca</td>
+                    <td>6.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>53.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Napier Grass</td>
+                    <td>0.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Subabul</td>
+                    <td>1.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Cassava</td>
+                    <td>11.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>7.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Fodder cumbu</td>
+                    <td>3.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>30.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Sorghum</td>
+                    <td>2.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Floriculture</td>
+                    <td>Marigold</td>
+                    <td>2.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>2.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>4.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>127.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>27.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>6.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>3.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>12.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Casurina</td>
+                    <td>0.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Ramanathapuram</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Teak</td>
+                    <td>7.6</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Ramanathapuram:</td>
+                    <td>310.1</td>
+                </tr>
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Guinea Grass</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>431.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>291.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Brinjal</td>
+                    <td>0.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Sugar Beet</td>
+                    <td>1.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Floriculture</td>
+                    <td>Anthurium</td>
+                    <td>3.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>3.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>18.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Sugar Candy</td>
+                    <td>8.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>4.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>5.2</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Rayagiri - Part-1:</td>
+                    <td>767.3</td>
+                </tr>
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>787.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Broccoli</td>
+                    <td>0.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>5.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Barley</td>
+                    <td>1.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>1.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Guava</td>
+                    <td>2.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Rayagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>4.1</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Rayagiri - Part-2:</td>
+                    <td>804.1</td>
+                </tr>
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Napier Grass</td>
+                    <td>5.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Cowpea</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Sesbania</td>
+                    <td>3.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>99.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>2.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Fodder Sorghum</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Sunflower</td>
+                    <td>3.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Agriculture</td>
+                    <td>Finger Millet (Ragi)</td>
+                    <td>1.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Floriculture</td>
+                    <td>Marigold</td>
+                    <td>10.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Ridge Gourd</td>
+                    <td>0.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>4.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>21.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>28.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>11.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>17.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Sanganaperi</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Teak</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Sanganaperi:</td>
+                    <td>209.4</td>
+                </tr>
+                                <tr>
+                    <td>Sivagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>2.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Hariyali</td>
+                    <td>2.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Bottle Gourd</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>424.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>13.7</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Sivagiri - Part-1:</td>
+                    <td>443.2</td>
+                </tr>
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>88.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Broccoli</td>
+                    <td>1.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>5.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Hariyali</td>
+                    <td>1.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sugar Beet</td>
+                    <td>0.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>173.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>2.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>6.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>65.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>2.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>35.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Tamarind</td>
+                    <td>1.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Sivagiri - Part-2</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Neem</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Sivagiri - Part-2:</td>
+                    <td>386.2</td>
+                </tr>
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Agriculture</td>
+                    <td>Brinjal</td>
+                    <td>0.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Agriculture</td>
+                    <td>Onion</td>
+                    <td>1.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>136.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Lemon</td>
+                    <td>3.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>84.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>14.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>1.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Onion</td>
+                    <td>0.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Subramaniyapuram</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>2.9</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Subramaniyapuram:</td>
+                    <td>246.4</td>
+                </tr>
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>981.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Brinjal</td>
+                    <td>2.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>12.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>81.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Brinjal</td>
+                    <td>3.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>3.9</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Thenmalai - Part-1:</td>
+                    <td>1,085.7</td>
+                </tr>
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>84.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Cassava</td>
+                    <td>6.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Maize</td>
+                    <td>119.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>4.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Diploid Cotton (Paruththi)</td>
+                    <td>4.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Mungbean(Green Gram)</td>
+                    <td>4.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Urdbean(Black Gram)</td>
+                    <td>5.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>107.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Floriculture</td>
+                    <td>Jasmine</td>
+                    <td>7.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Floriculture</td>
+                    <td>Jathi Malli (PITCHI)</td>
+                    <td>12.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>4.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Guava</td>
+                    <td>2.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Curry Leaf</td>
+                    <td>10.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Palmyra</td>
+                    <td>49.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Indian Basil</td>
+                    <td>17.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>47.3</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>68.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Sapota</td>
+                    <td>2.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Thenmalai - Part-2</td>
+                    <td>IX - Fold Classification / 18 A</td>
+                    <td>Neem</td>
+                    <td>4.2</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Thenmalai - Part-2:</td>
+                    <td>562.6</td>
+                </tr>
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Agriculture</td>
+                    <td>Groundnut</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>36.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>1368.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Agriculture</td>
+                    <td>Bottle Gourd</td>
+                    <td>2.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Agriculture</td>
+                    <td>Foxtail Millet (Thenai)</td>
+                    <td>2.4</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Horticultural</td>
+                    <td>Banana</td>
+                    <td>27.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>160.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Horticultural</td>
+                    <td>Onion</td>
+                    <td>0.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Thirumalapuram</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>2.0</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Thirumalapuram:</td>
+                    <td>1,600.6</td>
+                </tr>
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>1.7</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Agriculture</td>
+                    <td>Pearl Millet</td>
+                    <td>0.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Agriculture</td>
+                    <td>Sorghum</td>
+                    <td>2.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Agriculture</td>
+                    <td>Buffalo grass</td>
+                    <td>0.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>236.8</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Horticultural</td>
+                    <td>Mango</td>
+                    <td>2.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Horticultural</td>
+                    <td>Acid Lime</td>
+                    <td>1.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>18.2</td>
+                </tr>
+
+                                <tr>
+                    <td>Vasudevanallur</td>
+                    <td>Horticultural</td>
+                    <td>Tamarind</td>
+                    <td>2.3</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Vasudevanallur:</td>
+                    <td>267.3</td>
+                </tr>
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Groundnut</td>
+                    <td>5.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Ash Gourd</td>
+                    <td>3.1</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Cauliflower</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Foxtail Millet (Thenai)</td>
+                    <td>0.9</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>899.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Agriculture</td>
+                    <td>Cassava</td>
+                    <td>4.6</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>42.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-1</td>
+                    <td>Horticultural</td>
+                    <td>Black Pepper</td>
+                    <td>2.6</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Viswanathaperi - Part-1:</td>
+                    <td>959.6</td>
+                </tr>
+                                <tr>
+                    <td>Viswanathaperi - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Sugarcane</td>
+                    <td>13.5</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Finger Millet (Ragi)</td>
+                    <td>3.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-2</td>
+                    <td>Agriculture</td>
+                    <td>Rice (Paddy)</td>
+                    <td>1012.0</td>
+                </tr>
+
+                                <tr>
+                    <td>Viswanathaperi - Part-2</td>
+                    <td>Horticultural</td>
+                    <td>Coconut</td>
+                    <td>419.4</td>
+                </tr>
+
+                                <tr class="table-secondary fw-bold">
+                    <td colspan="3" class="text-end">Total for Viswanathaperi - Part-2:</td>
+                    <td>1,447.9</td>
+                </tr>
+                            </tbody>
+            <tfoot class="table-dark fw-bold">
+                <tr>
+                    <td colspan="3" class="text-end">Grand Total Area</td>
+                    <td>12,096.9</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+function exportTableToExcel(tableID, filename = '') {
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+    downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        downloadLink.download = filename;
+        downloadLink.click();
+    }
+}
+</script>
+
+</html>

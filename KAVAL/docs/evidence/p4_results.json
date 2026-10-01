@@ -1,0 +1,587 @@
+{
+  "n_parcels": 14310,
+  "n_bags": 2921,
+  "n_villages": 21,
+  "n_features": 76,
+  "folds": 5,
+  "classes": {
+    "Rice (Paddy)": 8970,
+    "Coconut": 2566,
+    "Maize": 1560,
+    "Banana": 653,
+    "Sugarcane": 429,
+    "Other": 132
+  },
+  "ladder": [
+    {
+      "regime": "1-random",
+      "accuracy": 0.897204751921733,
+      "accuracy_std": 0.004427402952189286,
+      "macro_f1": 0.7722099764011335,
+      "macro_f1_std": 0.01774485799472637,
+      "log_loss": 0.3431968276177878,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8990216631726066,
+        0.9000698812019566,
+        0.8927323549965059,
+        0.9028651292802237,
+        0.8913347309573725
+      ],
+      "fold_macro_f1": [
+        0.7634230413124556,
+        0.7902163379991518,
+        0.766740646399983,
+        0.7941678408670771,
+        0.7465020154270002
+      ],
+      "description": "Stratified row-wise k-fold. Diagnostic only \u2014 never a headline."
+    },
+    {
+      "regime": "2-parcel",
+      "accuracy": 0.8954581808715719,
+      "accuracy_std": 0.004721845465998529,
+      "macro_f1": 0.7687393896768806,
+      "macro_f1_std": 0.00906458056503797,
+      "log_loss": 0.3428088739384366,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8941299790356394,
+        0.8959133775759692,
+        0.8969252271139063,
+        0.9024816497728068,
+        0.8878406708595388
+      ],
+      "fold_macro_f1": [
+        0.7695926991096212,
+        0.7753404636568065,
+        0.7812176774294333,
+        0.756306534856765,
+        0.7612395733317769
+      ],
+      "description": "Grouped by parcel id. The obvious control; on this data it changes nothing, because parcels are already 1:1 with rows."
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.8119494373883545,
+      "accuracy_std": 0.021904191021515536,
+      "macro_f1": 0.5280061132692391,
+      "macro_f1_std": 0.03535696297464454,
+      "log_loss": 0.8227351257969016,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8370629370629371,
+        0.8175793512382281,
+        0.8144654088050315,
+        0.7710590702551555,
+        0.8195804195804196
+      ],
+      "fold_macro_f1": [
+        0.5537389433863713,
+        0.5394132336212399,
+        0.5460264452445186,
+        0.45792766343823793,
+        0.5429242806558278
+      ],
+      "description": "Grouped by survey capture event (one photograph, up to 43 parcels). THE HEADLINE REGIME."
+    },
+    {
+      "regime": "4-village",
+      "accuracy": 0.7083302514655647,
+      "accuracy_std": 0.09476733291515264,
+      "macro_f1": 0.3260958548188458,
+      "macro_f1_std": 0.043383772467339723,
+      "log_loss": 1.4585966075647743,
+      "folds": 5,
+      "fold_accuracy": [
+        0.6233320625238277,
+        0.5713149522799575,
+        0.8187199408065113,
+        0.7484811664641555,
+        0.7798031352533722
+      ],
+      "fold_macro_f1": [
+        0.2841185639219758,
+        0.3067771521618755,
+        0.3767024238013428,
+        0.37969663729826203,
+        0.2831844969107729
+      ],
+      "description": "Grouped by the village the parcel actually falls in (village_spatial, not the recorded code). Geographic generalisation."
+    }
+  ],
+  "group_structure": {
+    "n_bags": 2921,
+    "n_components": 2269,
+    "pct_groups_lost": 22.32,
+    "largest_component_parcels": 164,
+    "largest_component_bags": 25,
+    "field_id_present": true,
+    "definition": "n_components = distinct splits.headline_groups (capture event unioned with delineated field_id via union-find) over the parcels with features.",
+    "diagnostic_event_only_no_field_union": {
+      "regime": "diagnostic_event_only_no_field_union",
+      "accuracy": 0.8201962116272142,
+      "accuracy_std": 0.0057095392188057,
+      "macro_f1": 0.5585956193394217,
+      "macro_f1_std": 0.02446437581798554,
+      "log_loss": 0.7656395345391523,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8166259168704156,
+        0.8106219426974144,
+        0.8246594481313307,
+        0.8252359314924852,
+        0.823837818944425
+      ],
+      "fold_macro_f1": [
+        0.5392174884310429,
+        0.5846947111704014,
+        0.5303479187393713,
+        0.5906453817700533,
+        0.5480725965862397
+      ],
+      "description": "DIAGNOSTIC, not a split regime and never a headline: grouped by bag_id only, no field-id union. Same head, features, splitter, 5 folds and SEED as regime 3-event."
+    }
+  },
+  "heads": [
+    {
+      "regime": "3-event",
+      "accuracy": 0.8119494373883545,
+      "accuracy_std": 0.021904191021515536,
+      "macro_f1": 0.5280061132692391,
+      "macro_f1_std": 0.03535696297464454,
+      "log_loss": 0.8227351257969016,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8370629370629371,
+        0.8175793512382281,
+        0.8144654088050315,
+        0.7710590702551555,
+        0.8195804195804196
+      ],
+      "fold_macro_f1": [
+        0.5537389433863713,
+        0.5394132336212399,
+        0.5460264452445186,
+        0.45792766343823793,
+        0.5429242806558278
+      ],
+      "head": "LightGBM"
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.791051964154968,
+      "accuracy_std": 0.021105253838928695,
+      "macro_f1": 0.46949714450844954,
+      "macro_f1_std": 0.03440746047809056,
+      "log_loss": 0.6581686955424569,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8090909090909091,
+        0.8018835019183815,
+        0.7969951083158631,
+        0.7497378538972387,
+        0.7975524475524476
+      ],
+      "fold_macro_f1": [
+        0.4890907957643967,
+        0.481339755781757,
+        0.5062193388791614,
+        0.40605892349610273,
+        0.46477690862082993
+      ],
+      "head": "RandomForest"
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.8064947975052684,
+      "accuracy_std": 0.02481155119173587,
+      "macro_f1": 0.5368459353186278,
+      "macro_f1_std": 0.037388795952939556,
+      "log_loss": 0.6554832191839515,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8223776223776224,
+        0.8210673177537495,
+        0.8095737246680643,
+        0.7577770010485844,
+        0.8216783216783217
+      ],
+      "fold_macro_f1": [
+        0.5672974261543288,
+        0.5735989501698162,
+        0.520180114800325,
+        0.4718481143060631,
+        0.5513050711626059
+      ],
+      "head": "LogisticRegression"
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.8171208173954252,
+      "accuracy_std": 0.011589790410807013,
+      "macro_f1": 0.5641284811455577,
+      "macro_f1_std": 0.021444594795353385,
+      "log_loss": 1.0476528820734992,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8251748251748252,
+        0.8182769445413324,
+        0.8249475890985325,
+        0.7944774554351626,
+        0.8227272727272728
+      ],
+      "fold_macro_f1": [
+        0.5860747217997762,
+        0.5664836780140683,
+        0.5741618676486737,
+        0.5232749985068603,
+        0.5706471397584102
+      ],
+      "head": "MLP"
+    }
+  ],
+  "best_head": "MLP",
+  "sources_pending": [],
+  "sources_n_parcels": 14310,
+  "sources_n_dropped_no_presto": 0,
+  "sources": [
+    {
+      "regime": "3-event",
+      "accuracy": 0.8148847172994943,
+      "accuracy_std": 0.012381609511813498,
+      "macro_f1": 0.5633457496031247,
+      "macro_f1_std": 0.01973744903599792,
+      "log_loss": 1.0882158620707862,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8297202797202797,
+        0.8189745378444367,
+        0.8113207547169812,
+        0.7930793428871024,
+        0.8213286713286714
+      ],
+      "fold_macro_f1": [
+        0.586695515499788,
+        0.5659004636072408,
+        0.5597626374016961,
+        0.5283718769693065,
+        0.5759982545375915
+      ],
+      "source": "GSE only (64-d)",
+      "n_features": 64
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.7366867103744209,
+      "accuracy_std": 0.016231889182777993,
+      "macro_f1": 0.3987935882211864,
+      "macro_f1_std": 0.029673269894480554,
+      "log_loss": 0.8895294366998376,
+      "folds": 5,
+      "fold_accuracy": [
+        0.7475524475524475,
+        0.7436344611091733,
+        0.7341020265548568,
+        0.706396364907375,
+        0.7517482517482518
+      ],
+      "fold_macro_f1": [
+        0.38958129200167463,
+        0.4466738664012828,
+        0.41529634821305733,
+        0.3604638973555365,
+        0.3819525371343806
+      ],
+      "source": "Seasonal S1/S2 only (12)",
+      "n_features": 12
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.8171208173954252,
+      "accuracy_std": 0.011589790410807013,
+      "macro_f1": 0.5641284811455577,
+      "macro_f1_std": 0.021444594795353385,
+      "log_loss": 1.0476528820734992,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8251748251748252,
+        0.8182769445413324,
+        0.8249475890985325,
+        0.7944774554351626,
+        0.8227272727272728
+      ],
+      "fold_macro_f1": [
+        0.5860747217997762,
+        0.5664836780140683,
+        0.5741618676486737,
+        0.5232749985068603,
+        0.5706471397584102
+      ],
+      "source": "GSE + seasonal (76)",
+      "n_features": 76
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.7419269734633847,
+      "accuracy_std": 0.008852035596629067,
+      "macro_f1": 0.45187783277405275,
+      "macro_f1_std": 0.010998610901021097,
+      "log_loss": 1.3662160723139156,
+      "folds": 5,
+      "fold_accuracy": [
+        0.7451048951048951,
+        0.7485176142309033,
+        0.7393431167016072,
+        0.7259699405802167,
+        0.7506993006993007
+      ],
+      "fold_macro_f1": [
+        0.4676536004612508,
+        0.4554096149051116,
+        0.4482809494371975,
+        0.43384534896861315,
+        0.4541996500980907
+      ],
+      "source": "Presto (128-d)",
+      "n_features": 128
+    },
+    {
+      "regime": "3-event",
+      "accuracy": 0.8130685596934228,
+      "accuracy_std": 0.01846545767990418,
+      "macro_f1": 0.5593306790051422,
+      "macro_f1_std": 0.017481171246280253,
+      "log_loss": 1.025597805644181,
+      "folds": 5,
+      "fold_accuracy": [
+        0.8195804195804196,
+        0.8140913847227067,
+        0.8214535290006988,
+        0.7780496329954562,
+        0.8321678321678322
+      ],
+      "fold_macro_f1": [
+        0.5730658121273485,
+        0.5607472375112567,
+        0.5637877952934436,
+        0.5258073199553862,
+        0.5732452301382763
+      ],
+      "source": "GSE + Presto (192)",
+      "n_features": 192
+    }
+  ],
+  "source_comparisons": [
+    {
+      "source": "Seasonal S1/S2 only (12)",
+      "reference": "GSE only (64-d)",
+      "metric": "macro_f1",
+      "mean_delta": -0.1645521613819382,
+      "delta_sd": 0.03316349002170595,
+      "folds_favouring_source": 0,
+      "folds": 5,
+      "reference_fold_sd": 0.01973744903599792,
+      "underpowered": false
+    },
+    {
+      "source": "Seasonal S1/S2 only (12)",
+      "reference": "GSE only (64-d)",
+      "metric": "accuracy",
+      "mean_delta": -0.0781980069250734,
+      "delta_sd": 0.006541097189395821,
+      "folds_favouring_source": 0,
+      "folds": 5,
+      "reference_fold_sd": 0.012381609511813498,
+      "underpowered": false
+    },
+    {
+      "source": "GSE + seasonal (76)",
+      "reference": "GSE only (64-d)",
+      "metric": "macro_f1",
+      "mean_delta": 0.0007827315424331571,
+      "delta_sd": 0.008056249308318091,
+      "folds_favouring_source": 2,
+      "folds": 5,
+      "reference_fold_sd": 0.01973744903599792,
+      "underpowered": true
+    },
+    {
+      "source": "GSE + seasonal (76)",
+      "reference": "GSE only (64-d)",
+      "metric": "accuracy",
+      "mean_delta": 0.002236100095930804,
+      "delta_sd": 0.006814478980040639,
+      "folds_favouring_source": 3,
+      "folds": 5,
+      "reference_fold_sd": 0.012381609511813498,
+      "underpowered": true
+    },
+    {
+      "source": "Presto (128-d)",
+      "reference": "GSE only (64-d)",
+      "metric": "macro_f1",
+      "mean_delta": -0.11146791682907183,
+      "delta_sd": 0.01063078151624351,
+      "folds_favouring_source": 0,
+      "folds": 5,
+      "reference_fold_sd": 0.01973744903599792,
+      "underpowered": false
+    },
+    {
+      "source": "Presto (128-d)",
+      "reference": "GSE only (64-d)",
+      "metric": "accuracy",
+      "mean_delta": -0.07295774383610967,
+      "delta_sd": 0.006759062771131947,
+      "folds_favouring_source": 0,
+      "folds": 5,
+      "reference_fold_sd": 0.012381609511813498,
+      "underpowered": false
+    },
+    {
+      "source": "GSE + Presto (192)",
+      "reference": "GSE only (64-d)",
+      "metric": "macro_f1",
+      "mean_delta": -0.004015070597982317,
+      "delta_sd": 0.006365504413584993,
+      "folds_favouring_source": 1,
+      "folds": 5,
+      "reference_fold_sd": 0.01973744903599792,
+      "underpowered": true
+    },
+    {
+      "source": "GSE + Presto (192)",
+      "reference": "GSE only (64-d)",
+      "metric": "accuracy",
+      "mean_delta": -0.0018161576060715889,
+      "delta_sd": 0.01179218499287496,
+      "folds_favouring_source": 2,
+      "folds": 5,
+      "reference_fold_sd": 0.012381609511813498,
+      "underpowered": true
+    }
+  ],
+  "per_class": [
+    {
+      "crop": "Banana",
+      "records": 653,
+      "capture_events": 64,
+      "precision": 0.4403183023872679,
+      "recall": 0.2542113323124043,
+      "f1": 0.32233009708737864,
+      "support": 653
+    },
+    {
+      "crop": "Coconut",
+      "records": 2566,
+      "capture_events": 463,
+      "precision": 0.7723161620133701,
+      "recall": 0.7653936087295401,
+      "f1": 0.7688393031904482,
+      "support": 2566
+    },
+    {
+      "crop": "Maize",
+      "records": 1560,
+      "capture_events": 159,
+      "precision": 0.7110215053763441,
+      "recall": 0.6782051282051282,
+      "f1": 0.6942257217847769,
+      "support": 1560
+    },
+    {
+      "crop": "Other",
+      "records": 132,
+      "capture_events": 16,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 132
+    },
+    {
+      "crop": "Rice (Paddy)",
+      "records": 8970,
+      "capture_events": 2102,
+      "precision": 0.8653400715940198,
+      "recall": 0.9162764771460423,
+      "f1": 0.8900801386181503,
+      "support": 8970
+    },
+    {
+      "crop": "Sugarcane",
+      "records": 429,
+      "capture_events": 117,
+      "precision": 0.7814207650273224,
+      "recall": 0.6666666666666666,
+      "f1": 0.7194968553459119,
+      "support": 429
+    }
+  ],
+  "confusion_matrix": {
+    "labels": [
+      "Banana",
+      "Coconut",
+      "Maize",
+      "Other",
+      "Rice (Paddy)",
+      "Sugarcane"
+    ],
+    "counts": [
+      [
+        166,
+        139,
+        52,
+        8,
+        270,
+        18
+      ],
+      [
+        67,
+        1964,
+        50,
+        5,
+        457,
+        23
+      ],
+      [
+        26,
+        78,
+        1058,
+        8,
+        388,
+        2
+      ],
+      [
+        8,
+        53,
+        4,
+        0,
+        67,
+        0
+      ],
+      [
+        97,
+        280,
+        320,
+        17,
+        8219,
+        37
+      ],
+      [
+        13,
+        29,
+        4,
+        0,
+        97,
+        286
+      ]
+    ]
+  },
+  "headline": {
+    "regime": "3-event",
+    "head": "MLP",
+    "accuracy": 0.8171208173954252,
+    "macro_f1": 0.5641284811455577
+  }
+}

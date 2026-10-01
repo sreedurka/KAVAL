@@ -1,0 +1,34 @@
+{
+  "regime": "3-event",
+  "folds": 5,
+  "n_parcels": 14310,
+  "n_bags": 2921,
+  "classes": [
+    "Banana",
+    "Coconut",
+    "Maize",
+    "Other",
+    "Rice (Paddy)",
+    "Sugarcane"
+  ],
+  "mil_parcel_accuracy": 0.787141858839972,
+  "mil_parcel_macro_f1": 0.5092903793686192,
+  "mil_bag_accuracy": 0.8760845808101918,
+  "mil_bag_accuracy_std": 0.019682497110921883,
+  "baseline_parcel_accuracy": 0.8171208944793851,
+  "baseline_parcel_macro_f1": 0.5658286860044442,
+  "delta_accuracy_pp": -3.0,
+  "delta_macro_f1": -0.0565,
+  "mil_beats_baseline": false,
+  "attention_check": {
+    "parcels_in_multi_parcel_bags": 13682,
+    "measured_against": "independent Phase 4 baseline",
+    "agreement_low_support_quartile": 0.6942414498684595,
+    "agreement_rest": 0.8560569145307475,
+    "self_referential_low_support_quartile": 0.6121017246419176,
+    "self_referential_rest": 0.8401715232433487,
+    "gap_pp": 16.18,
+    "self_referential_gap_pp": 22.81,
+    "signal_is_informative": true
+  }
+}

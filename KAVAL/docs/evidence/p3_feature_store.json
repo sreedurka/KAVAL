@@ -1,0 +1,59 @@
+{
+  "parcels": 14611,
+  "feature_rows": 14611,
+  "features_present": 76,
+  "features_missing": [],
+  "parcels_without_features": 301,
+  "parcels_without_features_pct": 2.06,
+  "photo_distance_m_median": 1432.9,
+  "photo_distance_method": "projected (EPSG:32643) over joined parcels; the canonical published figure is the haversine median in gt_forensics.json",
+  "photo_distance_missing": 13,
+  "heterogeneity_source": "std across seasonal NDVI windows",
+  "evaluable_classes": [
+    "Banana",
+    "Coconut",
+    "Maize",
+    "Rice (Paddy)",
+    "Sugarcane"
+  ],
+  "collapsed_to_other": [
+    "Cassava",
+    "Diploid Cotton (Paruththi)",
+    "Fodder Sorghum",
+    "Groundnut",
+    "Mango",
+    "Marigold",
+    "Sorghum"
+  ],
+  "class_events": {
+    "Rice (Paddy)": 2322,
+    "Coconut": 517,
+    "Maize": 162,
+    "Sugarcane": 120,
+    "Banana": 66,
+    "Sorghum": 4,
+    "Marigold": 3,
+    "Cassava": 3,
+    "Diploid Cotton (Paruththi)": 2,
+    "Fodder Sorghum": 2,
+    "Groundnut": 2,
+    "Mango": 1
+  },
+  "class_records": {
+    "Rice (Paddy)": 9201,
+    "Coconut": 2627,
+    "Maize": 1563,
+    "Banana": 655,
+    "Sugarcane": 432,
+    "Marigold": 36,
+    "Sorghum": 30,
+    "Cassava": 24,
+    "Diploid Cotton (Paruththi)": 19,
+    "Groundnut": 16,
+    "Mango": 6,
+    "Fodder Sorghum": 2
+  },
+  "bags": 3204,
+  "villages": 21,
+  "rows": 14611
+}

@@ -1,0 +1,240 @@
+{
+  "model": "FTW_PRUE_EFNET_B7_CCBY",
+  "imagery": {
+    "source": "pre-vectorised",
+    "path": "KAVAL/data/interim/ftw_run/polygons.parquet"
+  },
+  "imagery_scenes": {
+    "items": {
+      "window_a": "S2A_MSIL2A_20240507T050651_R019_T43PGL_20240507T100654",
+      "window_b": "S2B_MSIL2A_20241208T051119_R019_T43PGL_20241208T075639"
+    },
+    "source": "docs/evidence/p2a_ftw_inference.json"
+  },
+  "configured_window_pair_not_used_by_ftw": {
+    "S2": [
+      "2024-09-01",
+      "2024-11-30"
+    ],
+    "S3": [
+      "2024-12-01",
+      "2025-02-28"
+    ]
+  },
+  "postprocess": {
+    "min_field_area_m2": 500,
+    "simplify_m": 5,
+    "min_compactness": 0.1
+  },
+  "fields": {
+    "polygons_in": 64708,
+    "after_make_valid_explode": 64708,
+    "dropped_below_min_area": 0,
+    "dropped_slivers": 178,
+    "polygons_out": 64530,
+    "oversized_kept": 0,
+    "oversized_threshold_m2": 50000,
+    "field_area_m2": {
+      "p10": 500,
+      "median": 1100,
+      "p90": 3900,
+      "total_ha": 12246.7
+    }
+  },
+  "snap_tolerance_curve": [
+    {
+      "tolerance_m": 0.0,
+      "match_rate": 0.3638,
+      "one_point_per_field_rate": 0.1655
+    },
+    {
+      "tolerance_m": 10.0,
+      "match_rate": 0.6143,
+      "one_point_per_field_rate": 0.1982
+    },
+    {
+      "tolerance_m": 15.0,
+      "match_rate": 0.6796,
+      "one_point_per_field_rate": 0.2016
+    },
+    {
+      "tolerance_m": 20.0,
+      "match_rate": 0.7328,
+      "one_point_per_field_rate": 0.2042
+    },
+    {
+      "tolerance_m": 30.0,
+      "match_rate": 0.8144,
+      "one_point_per_field_rate": 0.2078
+    },
+    {
+      "tolerance_m": 50.0,
+      "match_rate": 0.9036,
+      "one_point_per_field_rate": 0.21
+    }
+  ],
+  "snap_tolerance_applied_m": 20.0,
+  "gate": {
+    "points": 14611,
+    "gate_metric": "fraction of ground-truth points inside exactly one FTW field",
+    "gate_threshold": 0.8,
+    "match_rate": 0.7328,
+    "gate_passes": false,
+    "points_in_exactly_one_field": 10707,
+    "points_in_no_field": 3904,
+    "points_in_multiple_fields": 0,
+    "one_point_per_field_rate": 0.2042,
+    "points_sharing_a_field": 7724,
+    "fields_holding_more_than_one_point": 2545,
+    "max_points_in_one_field": 19,
+    "fields_total": 64530,
+    "fields_hit_by_a_point": 5528,
+    "fields_with_no_ground_truth": 59002,
+    "per_village": [
+      {
+        "village": 14,
+        "points": 390,
+        "match_rate": 0.4308,
+        "one_point_per_field_rate": 0.0769
+      },
+      {
+        "village": 13,
+        "points": 522,
+        "match_rate": 0.5441,
+        "one_point_per_field_rate": 0.1628
+      },
+      {
+        "village": 141,
+        "points": 1528,
+        "match_rate": 0.6014,
+        "one_point_per_field_rate": 0.1931
+      },
+      {
+        "village": 102,
+        "points": 86,
+        "match_rate": 0.6163,
+        "one_point_per_field_rate": 0.2907
+      },
+      {
+        "village": 11,
+        "points": 340,
+        "match_rate": 0.6353,
+        "one_point_per_field_rate": 0.2618
+      },
+      {
+        "village": 15,
+        "points": 606,
+        "match_rate": 0.637,
+        "one_point_per_field_rate": 0.1535
+      },
+      {
+        "village": 12,
+        "points": 356,
+        "match_rate": 0.6376,
+        "one_point_per_field_rate": 0.1882
+      },
+      {
+        "village": 9,
+        "points": 1258,
+        "match_rate": 0.6383,
+        "one_point_per_field_rate": 0.1479
+      },
+      {
+        "village": 7,
+        "points": 917,
+        "match_rate": 0.6718,
+        "one_point_per_field_rate": 0.0981
+      },
+      {
+        "village": 142,
+        "points": 766,
+        "match_rate": 0.688,
+        "one_point_per_field_rate": 0.1436
+      },
+      {
+        "village": 3,
+        "points": 205,
+        "match_rate": 0.7268,
+        "one_point_per_field_rate": 0.1707
+      },
+      {
+        "village": 8,
+        "points": 782,
+        "match_rate": 0.7353,
+        "one_point_per_field_rate": 0.1969
+      },
+      {
+        "village": 16,
+        "points": 189,
+        "match_rate": 0.7513,
+        "one_point_per_field_rate": 0.2116
+      },
+      {
+        "village": 911,
+        "points": 1573,
+        "match_rate": 0.7737,
+        "one_point_per_field_rate": 0.3001
+      },
+      {
+        "village": 101,
+        "points": 898,
+        "match_rate": 0.8107,
+        "one_point_per_field_rate": 0.1759
+      },
+      {
+        "village": 121,
+        "points": 391,
+        "match_rate": 0.8261,
+        "one_point_per_field_rate": 0.2302
+      },
+      {
+        "village": 151,
+        "points": 365,
+        "match_rate": 0.8301,
+        "one_point_per_field_rate": 0.2192
+      },
+      {
+        "village": 6,
+        "points": 1425,
+        "match_rate": 0.8442,
+        "one_point_per_field_rate": 0.2744
+      },
+      {
+        "village": 912,
+        "points": 720,
+        "match_rate": 0.8764,
+        "one_point_per_field_rate": 0.2722
+      },
+      {
+        "village": 122,
+        "points": 303,
+        "match_rate": 0.8977,
+        "one_point_per_field_rate": 0.231
+      },
+      {
+        "village": 152,
+        "points": 991,
+        "match_rate": 0.9738,
+        "one_point_per_field_rate": 0.2291
+      }
+    ],
+    "per_village_spread": {
+      "villages": 21,
+      "worst": 0.4308,
+      "best": 0.9738,
+      "villages_below_gate": 14
+    }
+  },
+  "geometry_source_counts": {
+    "ftw_shared": 7724,
+    "voronoi": 3904,
+    "ftw": 2983
+  },
+  "area_m2": {
+    "median": 1102,
+    "p10": 285,
+    "p90": 2823,
+    "total_ha": 2250.2
+  },
+  "gate_verdict": "FAIL: 73.3% of points fall inside exactly one FTW field, below the 80% Phase 2 gate. Per plan.md \u00a76 this is permitted only with a documented explanation and the fallback in place \u2014 the fallback IS in place (see geometry_source_counts). Write the explanation before opening Phase 3."
+}
